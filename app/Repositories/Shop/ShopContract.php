@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Repositories\Shop;
+
+interface ShopContract
+{
+	public function create($request);
+	public function edit($shopId, $request);
+	public function findAll();
+	public function findById($shopId);
+	public function remove($shopId);
+	public function getAllLandlord();
+	public function agentViewShop($shopId);
+	public function agentEditShop($shopId, $request);
+	public function agentDeleteShop($shopId);
+	public function agentFindAllByMe();
+	public function getUserId();
+}
