@@ -43,6 +43,7 @@
                     <!-- <div class="form-group">
                         <input type="file" name="picture" value="{{old('picture')}}" class="form-control">
                     </div> -->
+                    {{ csrf_field() }}
                     <div class="row">
                         <div class="form-group col-md-6 col-xs-12 col-lg-6">
                         	<label for="first_name">First Name:</label>

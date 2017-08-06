@@ -14,6 +14,7 @@
                 <hr class="widget-separator">
                 <div class="widget-body">
                     {{Form::open(array('route' => 'store_land', 'method' => 'POST', 'files'=>true))}}
+                        {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-7">
                                 <label for="location">Location</label>

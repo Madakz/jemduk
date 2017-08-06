@@ -3,6 +3,7 @@
 <head>
 
 	<!-- Meta Tags -->
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 	<meta name="description" content="YourHome - Property and Real Estate HTML Template">
@@ -35,6 +36,22 @@
 		background-color:#878787;
 		/*background-color:#3399FF;*/
 	}
+
+	div#suggesstion-box ul#suggestions{
+		background-color: #D4D4D4;
+		color:#000;
+		width: calc(100% - 20px);
+		border-radius: 2px;
+	}
+	div#suggesstion-box ul#suggestions li:hover{
+		background-color: #878787;
+		color:#fff;
+		background-size: 70px;
+	}
+	div#suggesstion-box ul#suggestions li hr{
+		margin-top:0px;
+		/*padding: 0px;*/
+	}
 </style>
 <body>
 	
@@ -50,7 +67,7 @@
 				<div class="row">
 					<div class="col-md-3 col-sm-3 logo">
 						<h1>
-							<a href="{{ url('/home') }}"><img src="{{ asset('/clientviews/img/jemduk.png')}}" alt="jemduk">
+							<a href="{{route('home')}}"><img src="{{ asset('/clientviews/img/jemduk.png')}}" alt="jemduk">
 							Jemduk</a>
 						</h1>
 					</div>
@@ -59,7 +76,7 @@
 						<!-- Nav Start -->
 						<nav>
 							<ul class="sf-menu" id="menu">
-								<li class="active"><a href="{{ url('/home') }}">Home <i class="menu-icon zmdi zmdi-home zmdi-hc"></i></a>									
+								<li class="active"><a href="{{route('home')}}">Home <i class="menu-icon zmdi zmdi-home zmdi-hc"></i></a>									
 								</li>
 								<li>
 									<a href="#about">About Us 
@@ -109,44 +126,6 @@
 		</header>
 		<!-- Header End -->
 
-
-					
-		<!-- Slider Start -->
-		<section class="main-slider">
-			<div class="slide-carousel owl-item">					
-				<div class="item" style="background-image:url({{ asset('/clientviews/images/slide1.jpg') }});">
-					<div class="overlay"></div>
-					<div class="text">
-						<div class="this-item">
-							<h2>Welcome To Jemduk</h2>
-						</div>
-						<div class="this-item">
-							<h3>Your Reliable Property Mangement Solution</h3>
-						</div>
-						<!-- <div class="this-item">
-							<p><a href="#">Read More</a></p>
-						</div> -->
-					</div>
-				</div>					
-				<div class="item" style="background-image:url({{ asset('/clientviews/images/slide2.jpg') }});">
-					<div class="overlay"></div>
-					<div class="text">
-						<div class="this-item">
-							<h2>24/7 Hours Solution</h2>
-						</div>
-						<div class="this-item">
-							<h3>All Emergency and Important Problem Are Handled</h3>
-						</div>
-						<!-- <div class="this-item">
-							<p><a href="#">Read More</a></p>
-						</div> -->
-					</div>
-				</div>
-			</div>
-		</section>
-		<!-- Slider End -->
-
-
 		<!-- properties Search Start -->
 		<div class="properties bg-gray">
 			<div class="container">
@@ -160,6 +139,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						{{Form::open(['route' => 'search_property', 'method' => 'POST'])}}
+							{{ csrf_field() }}
 							<!-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"></div> -->
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="row">
@@ -186,7 +166,9 @@
 									<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">				
 										<div class="mt-car-search">
 												<input type="text" id="search-box" name="search_item" value="" class="search-field form-control" placeholder="enter search item ..." autocomplete="off">
-												<div id="suggesstion-box"></div>
+												<div id="suggesstion-box">
+													
+												</div>
 										</div>																				
 									</div>		
 									<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">		
@@ -285,7 +267,7 @@
 									<div class="roomdetails-overlay">
 										<div class="room-details">
 											<h2>Houses </h2>	
-											<a href="#" class="readmore-button">View All</a>	
+											<a href="{{route('view_houses')}}" class="readmore-button">View All</a>	
 										</div>							
 									</div>
 								</div>
@@ -301,7 +283,7 @@
 									<div class="roomdetails-overlay">
 										<div class="room-details">
 											<h2>Lands</h2>	
-											<a href="#" class="readmore-button">View All</a>	
+											<a href="{{route('view_lands')}}" class="readmore-button">View All</a>	
 										</div>							
 									</div>
 								</div>
@@ -316,7 +298,7 @@
 									<div class="roomdetails-overlay">
 										<div class="room-details">
 											<h2>Shops</h2>	
-											<a href="#" class="readmore-button">View All</a>	
+											<a href="{{route('view_shops')}}" class="readmore-button">View All</a>	
 										</div>							
 									</div>
 								</div>

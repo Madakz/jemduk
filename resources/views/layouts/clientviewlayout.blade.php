@@ -3,6 +3,7 @@
 <head>
 
 	<!-- Meta Tags -->
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 	<meta name="description" content="YourHome - Property and Real Estate HTML Template">
@@ -129,6 +130,7 @@
 								<div class="screen-reader-response">								
 								</div>
 								{{Form::open(['route' => 'store_get_intouch', 'method' => 'POST', 'class'=>'wpcf7-form'])}}									
+									{{ csrf_field() }}
 									<div class="col-md-6">
 										<div class="first-name-input">
 			        							<label>First Name</label><br />

@@ -7,6 +7,7 @@ use App\Photo;
 use Sentinel;
 use Illuminate\Support\Facades\Input;
 use App\Landlord;
+use App\Properties_allocation;
 
 class EloquentLandRepository implements LandContract
 {
@@ -34,6 +35,38 @@ class EloquentLandRepository implements LandContract
 
 	    return $land;
 	}
+
+	public function save_allocation_details($request){	
+		$land = new Properties_allocation;
+		$land->surname = $request->surname;
+		$land->othernames = $request->othernames;
+		$land->amount_paid_figure = $request->amount_paid_figure;
+		$land->amount_paid_words = $request->amount_paid_words;
+		$land->supposed_amount = $request->supposed_amount;
+		$land->balance_due = $request->balance_due;
+		$land->from_date = $request->from_date;
+		$land->to_date = $request->to_date;
+		$land->description = $request->description;
+		$land->payment_category = $request->category;
+		$land->recieved_by = $request->collector_name;
+		$land->phone_number = $request->phone_number;
+		$land->property_id = $request->property_id;
+		$land->user_id = $request->user_id;
+
+		$land->save();
+
+		$land_update = $this->findById($request->property_id);		//get land with id and update from vacant to occupied
+		$land_update->status = 'occupied';
+		$land_update->save();
+		return $land;
+	}
+
+	public function de_allocate_land($landId){
+		$land_update = $this->findById($landId);		//get land with id and update from occupied to vacant
+		$land_update->status = 'vacant';
+		$land_update->save();
+		return $land_update;
+	}
 	
 	public function edit($landId, $request) {
 	    $land = $this->findById($landId);
@@ -43,8 +76,11 @@ class EloquentLandRepository implements LandContract
 	}
 	
 	public function findAll(){
-		return \DB::table('properties')->where('property_type', '=', 'land')->get();
-	    // return Property::all();
+		return Property::where('property_type', '=', 'land')->get();
+	}
+
+	public function findAllWithPhoto(){
+		return Property::where('property_type', '=', 'land')->with('photo')->get();
 	}
 
 	public function agentViewLand($landId){

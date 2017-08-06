@@ -15,5 +15,8 @@ interface HouseContract
 	public function agentDeleteHouse($houseId);
 	public function agentFindAllByMe();
 	public function getUserId();
+	public function findAllWithPhoto();
+	public function save_allocation_details($request);
+	public function de_allocate_house($houseId);
 	// public function findByName($propertyName);		//may use this later
 }

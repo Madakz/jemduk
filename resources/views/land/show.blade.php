@@ -20,15 +20,14 @@
                                 <b>Images: </b>
                             </td>
                             <td>  </td>
-                            <?php $countphoto= count($lands->photo);
-                                for ($i=0; $i < $countphoto; $i++) { 
-                            ?>
-                                    <td><img class="img-thumbnail" src="{!! url('photo/'.$lands->photo[$i]->photo_name) !!}" style="height:250px; width:250px;"></td>
-                            <?php
-                                }
-                            ?>
-                            
-                            <!-- <td><img src="{!! url('photo/'.$lands->photo[0]->photo_name) !!}"></td> -->
+                            <?php $countphoto= count($lands->photo); ?>
+                                @if ($countphoto === 0)
+                                    <td> No Images </td>
+                                @else
+                                    @for ($i=0; $i < $countphoto; $i++)
+                                        <td style="width:260px;"><img class="img-thumbnail" src="{!! url('photo/'.$lands->photo[$i]->photo_name) !!}" style="height:250px; width:250px;"></td>
+                                    @endfor
+                                @endif                            
                         </tr>
                         <tr>
                             <td>
@@ -37,6 +36,7 @@
                             <td>  </td>
                             <td> {{ $lands->location}}</td>
                         </tr>
+                        <tr style="border-top: 20px solid transparent;"></tr>
                          <tr>
                             <td>
                                 <b>Scope: </b>
@@ -44,6 +44,7 @@
                             <td>  </td>
                             <td> {{$lands->scope}}</td>
                         </tr>
+                        <tr style="border-top: 20px solid transparent;"></tr>
                         <tr>
                             <td>
                                 <b>Type: </b>
@@ -51,6 +52,7 @@
                             <td>  </td>
                             <td> {{$lands->type}}</td>
                         </tr>
+                        <tr style="border-top: 20px solid transparent;"></tr>
                         <tr>
                             <td>
                                 <b>Size of the Land: </b>
@@ -58,13 +60,7 @@
                             <td>  </td>
                             <td> {{ $lands->size}}</td>
                         </tr>
-                        <tr>
-                            <td>
-                                <b>Description: </b>
-                            </td>
-                            <td>  </td>
-                            <td> {{$lands->description}}</td>
-                        </tr>
+                        <tr style="border-top: 20px solid transparent;"></tr>
                         <tr>
                             <td>
                                 <b>COO/ROO Number: </b>
@@ -72,6 +68,7 @@
                             <td>  </td>
                             <td> {{ $lands->coo_roo}}</td>
                         </tr>
+                        <tr style="border-top: 20px solid transparent;"></tr>
                         <tr>
                             <td>
                                 <b>Status: </b>
@@ -79,6 +76,15 @@
                             <td>  </td>
                             <td> {{ $lands->status}}</td>
                         </tr>
+                        <tr style="border-top: 20px solid transparent;"></tr>
+                        <tr>
+                            <td>
+                                <b>Description: </b>
+                            </td>
+                            <td>  </td>
+                            <td> {{$lands->description}}</td>
+                        </tr>
+                        <tr style="border-top: 20px solid transparent;"></tr>
                         <tr>
                             <td>
                                 <b>Price: </b>
@@ -92,13 +98,17 @@
             
             <div class="widget-body">
                 <div class="form-group">
-                    @if($lands->status == 'vacant')
+                    @if($lands->status == 'vacant' && ($lands->scope == 'Rent' || $lands->scope == 'Lease'))
                         <a href="{{ route('allocate_land', [$lands->id])}}">                        
-                            <button type="submit" class="btn btn-success btn-md"><i class="menu-icon zmdi zmdi-tag zmdi-hc"></i> Allocate Land</button>
+                            <button type="submit" class="btn btn-success btn-md"><i class="menu-icon zmdi zmdi-label zmdi-hc"></i> Allocate Land</button>
+                        </a>
+                    @elseif($lands->status == 'vacant' && $lands->scope == 'Sale')
+                        <a href="{{ route('sell_land', [$lands->id])}}">                        
+                            <button type="submit" class="btn btn-success btn-md"><i class="menu-icon zmdi zmdi-label zmdi-hc"></i> Sell Land</button>
                         </a>
                     @else
                         <a href="{{ route('de_allocate_land', [$lands->id])}}">                        
-                            <button type="submit" class="btn btn-warning btn-md"><i class="menu-icon zmdi zmdi-edit zmdi-hc"></i> De-allocate house</button>
+                            <button type="submit" class="btn btn-warning btn-md"><i class="menu-icon zmdi zmdi-label zmdi-hc"></i> De-allocate Land</button>
                         </a>
                     @endif
                     <a href="{{ route('edit_land', [$lands->id])}}">

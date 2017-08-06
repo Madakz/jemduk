@@ -3,6 +3,7 @@
 <head>
 
 	<!-- Meta Tags -->
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 	<meta name="description" content="YourHome - Property and Real Estate HTML Template">
@@ -35,6 +36,22 @@
 		background-color:#878787;
 		/*background-color:#3399FF;*/
 	}
+
+	div#suggesstion-box ul#suggestions{
+		background-color: #D4D4D4;
+		color:#000;
+		width: calc(100% - 20px);
+		border-radius: 2px;
+	}
+	div#suggesstion-box ul#suggestions li:hover{
+		background-color: #878787;
+		color:#fff;
+		background-size: 70px;
+	}
+	div#suggesstion-box ul#suggestions li hr{
+		margin-top:0px;
+		/*padding: 0px;*/
+	}
 </style>
 <body>
 	
@@ -50,7 +67,7 @@
 				<div class="row">
 					<div class="col-md-3 col-sm-3 logo">
 						<h1>
-							<a href="{{ url('/home') }}"><img src="{{ asset('/clientviews/img/jemduk.png')}}" alt="jemduk">
+							<a href="{{route('home')}}"><img src="{{ asset('/clientviews/img/jemduk.png')}}" alt="jemduk">
 							Jemduk</a>
 						</h1>
 					</div>
@@ -59,7 +76,7 @@
 						<!-- Nav Start -->
 						<nav>
 							<ul class="sf-menu" id="menu">
-								<li class="active"><a href="{{ url('/home') }}">Home <i class="menu-icon zmdi zmdi-home zmdi-hc"></i></a>									
+								<li class="active"><a href="{{route('home')}}">Home <i class="menu-icon zmdi zmdi-home zmdi-hc"></i></a>									
 								</li>
 								<li>
 									<a href="#about">About Us 
@@ -160,6 +177,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						{{Form::open(['route' => 'search_property', 'method' => 'POST'])}}
+							{{ csrf_field() }}
 							<!-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"></div> -->
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="row">
@@ -187,31 +205,7 @@
 										<div class="mt-car-search">
 												<input type="text" id="search-box" name="search_item" value="" class="search-field form-control" placeholder="enter search item ..." autocomplete="off">
 												<div id="suggesstion-box">
-													<?php
-														if(isset($properties)) 
-            											{
-											                ?>
-											                    <ul id="material-list">
-
-											                <?php
-											                    foreach($properties as $property) 
-											                    {
-											                        ?>
-											                            <!-- <li onClick="selectProperty('<?php //echo $property->designation_name; ?>');"><?php //echo $property["designation_name"]; ?></li> -->
-											                        <?php   
-											                    } 
-											                ?>
-											                    </ul>
-											                <?php 
-											            }else{
-											                ?>
-											                    <ul id="material-list">
-											                        <li>No results Found</li>
-											                    </ul>
-											                <?php
-
-											            }
-											        ?>
+													
 												</div>
 										</div>																				
 									</div>		
@@ -311,7 +305,7 @@
 									<div class="roomdetails-overlay">
 										<div class="room-details">
 											<h2>Houses </h2>	
-											<a href="#" class="readmore-button">View All</a>	
+											<a href="{{route('view_houses')}}" class="readmore-button">View All</a>	
 										</div>							
 									</div>
 								</div>
@@ -327,7 +321,7 @@
 									<div class="roomdetails-overlay">
 										<div class="room-details">
 											<h2>Lands</h2>	
-											<a href="#" class="readmore-button">View All</a>	
+											<a href="{{route('view_lands')}}" class="readmore-button">View All</a>	
 										</div>							
 									</div>
 								</div>
@@ -342,7 +336,7 @@
 									<div class="roomdetails-overlay">
 										<div class="room-details">
 											<h2>Shops</h2>	
-											<a href="#" class="readmore-button">View All</a>	
+											<a href="{{route('view_shops')}}" class="readmore-button">View All</a>	
 										</div>							
 									</div>
 								</div>
@@ -676,4 +670,13 @@
 	@include('layouts.scriptlinks')
 
 	</body>
+	<script type="text/JavaScript">
+		$(document).ready(function () {
+			    Handler for .ready() called.
+			    $('html, body').animate({
+			        scrollTop: $('#searchp').offset().top
+			    }, 'slow');
+			    return false;
+			});
+	</script>
 </html>

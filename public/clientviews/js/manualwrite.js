@@ -3,9 +3,9 @@ $(document).ready(function(){
 	$("#search-box").keyup(function(){
 		$.ajax({
 		type: "POST",
-		url: 'http://127.0.0.1:8000/',
+		url: '/autosuggest',
 		data:{keyword:$(this).val(),
-				 categoey: $('#category').val()
+				 category: $('#category').val()
 				},
 		beforeSend: function(){
 			$("#search-box").css("background","#FFF url(/clientviews/images/loader64.gif) no-repeat 165px");
@@ -13,6 +13,7 @@ $(document).ready(function(){
 		success: function(data){
 			$("#suggesstion-box").show();
 			$("#suggesstion-box").html(data);
+			// $("#suggesstion-box").css("background","#000");
 			$("#search-box").css("background","#FFF");
 		}
 		});
@@ -20,6 +21,6 @@ $(document).ready(function(){
 });
 
 function selectProperty(val) {
-$("#search-box").val(val);
-$("#suggesstion-box").hide();
+	$("#search-box").val(val);
+	$("#suggesstion-box").hide();
 }

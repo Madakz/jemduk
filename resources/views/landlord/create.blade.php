@@ -50,6 +50,7 @@
                     </div>
                 @endif
                 {{Form::open(['route' => 'store_landlord', 'method' => 'POST', 'files'=>true])}}
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <input type="file" name="picture" value="{{old('picture')}}" class="form-control">
                     </div>

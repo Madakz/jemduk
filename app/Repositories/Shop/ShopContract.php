@@ -15,4 +15,7 @@ interface ShopContract
 	public function agentDeleteShop($shopId);
 	public function agentFindAllByMe();
 	public function getUserId();
+	public function findAllWithPhoto();
+	public function save_allocation_details($request);
+	public function de_allocate_shop($shopId);
 }

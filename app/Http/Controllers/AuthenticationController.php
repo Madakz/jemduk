@@ -22,7 +22,7 @@ class AuthenticationController extends Controller
     public function attemptLogin(Request $request) {
         
         $this->validate($request, [
-            'email' => 'required|email',
+            'email' => 'required|Between:3,64|email',
             'password' => 'required',
         ]);
         $credentials = [

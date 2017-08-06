@@ -17,8 +17,8 @@
 
 Route::get('/', 'SearchController@index')->name('home');
 
-Route::post('/', 'SearchController@searchResults')->name('search_property');
-// Route::post('/', 'SearchController@getColumndata')->name('autosuggest');
+Route::post('/search', 'SearchController@searchResults')->name('search_property');
+Route::post('/autosuggest', 'SearchController@getColumndata')->name('autosuggest');
 
 
 Route::get('login', 'AuthenticationController@login')->name('login');
@@ -59,7 +59,8 @@ Route::group(['prefix' => 'landlords'], function() {
 });
 
 Route::group(['prefix' => 'houses'], function() {
-    Route::get('/', 'HouseController@index')->name('house_index');
+    // Route::get('/', 'HouseController@index')->name('house_index');
+    Route::get('/','HouseController@index')->name('house_index');
     Route::get('/create', 'HouseController@create')->name('create_house');
     Route::post('/create', 'HouseController@store')->name('store_house');
 
@@ -69,7 +70,9 @@ Route::group(['prefix' => 'houses'], function() {
     Route::put('/edit/{houseId}', 'HouseController@update')->name('update_house');
     Route::get('/{houseId}/delete', 'HouseController@destroy')->name('delete_house');
     Route::get('/allocate/{houseId}', 'HouseController@allocate')->name('allocate_house');
-    Route::get('/de_allocate', 'HouseController@de_allocate')->name('de_allocate_house');
+    Route::post('/allocate', 'HouseController@store_allocation')->name('save_house_allocation');
+    Route::get('/sell-house/{houseId}', 'HouseController@sellHouse')->name('sell_house');
+    Route::get('/de_allocate/{houseId}', 'HouseController@de_allocate')->name('de_allocate_house');
 });
 
 Route::group(['prefix' => 'lands'], function() {
@@ -83,7 +86,9 @@ Route::group(['prefix' => 'lands'], function() {
     Route::put('/edit/{landId}', 'LandController@update')->name('update_land');
     Route::get('/{landId}/delete', 'LandController@destroy')->name('delete_land');
     Route::get('/allocate/{landId}', 'LandController@allocate')->name('allocate_land');
-    Route::get('/de_allocate', 'LandController@de_allocate')->name('de_allocate_land');
+    Route::post('/allocate', 'LandController@store_allocation')->name('save_land_allocation');
+    Route::get('/sell-land/{landId}', 'LandController@sellLand')->name('sell_land');
+    Route::get('/de_allocate/{landId}', 'LandController@de_allocate')->name('de_allocate_land');
 });
 
 Route::group(['prefix' => 'shops'], function() {
@@ -97,7 +102,9 @@ Route::group(['prefix' => 'shops'], function() {
     Route::put('/edit/{shopId}', 'ShopController@update')->name('update_shop');
     Route::get('/{shopId}/delete', 'ShopController@destroy')->name('delete_shop');
     Route::get('/allocate/{shopId}', 'ShopController@allocate')->name('allocate_shop');
-    Route::get('/de_allocate', 'ShopController@de_allocate')->name('de_allocate_shop');
+    Route::post('/allocate', 'ShopController@store_allocation')->name('save_shop_allocation');
+    Route::get('/sell_shop/{shopId}', 'ShopController@sellShop')->name('sell_shop');
+    Route::get('/de_allocate/{shopId}', 'ShopController@de_allocate')->name('de_allocate_shop');
 });
 
 
@@ -114,4 +121,7 @@ Route::group(['prefix' => 'shops'], function() {
     Route::get('/request_property/{propertyId}', 'ClientController@request_property')->name('request_prop');
     Route::post('/request_property', 'ClientController@store_request')->name('store_request');
     Route::post('/get_intouch', 'ClientController@get_intouch')->name('store_get_intouch');
+    Route::get('/allhouses', 'ClientController@allhouses')->name('view_houses');
+    Route::get('/alllands', 'ClientController@alllands')->name('view_lands');
+    Route::get('/allshops', 'ClientController@allshops')->name('view_shops');
    

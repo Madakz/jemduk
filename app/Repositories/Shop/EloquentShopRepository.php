@@ -7,6 +7,7 @@ use App\Photo;
 use Sentinel;
 use Illuminate\Support\Facades\Input;
 use App\Landlord;
+use App\Properties_allocation;
 
 class EloquentShopRepository implements ShopContract
 {
@@ -34,6 +35,40 @@ class EloquentShopRepository implements ShopContract
 	    }
 	    return $shop;
 	}
+
+	public function save_allocation_details($request){	
+		// dd($request);	
+		$shop = new Properties_allocation;
+		$shop->surname = $request->surname;
+		$shop->othernames = $request->othernames;
+		$shop->amount_paid_figure = $request->amount_paid_figure;
+		$shop->amount_paid_words = $request->amount_paid_words;
+		$shop->supposed_amount = $request->supposed_amount;
+		$shop->balance_due = $request->balance_due;
+		$shop->from_date = $request->from_date;
+		$shop->to_date = $request->to_date;
+		$shop->description = $request->description;
+		$shop->payment_category = $request->category;
+		$shop->recieved_by = $request->collector_name;
+		$shop->phone_number = $request->phone_number;
+		$shop->property_id = $request->property_id;
+		$shop->user_id = $request->user_id;
+
+		$shop->save();
+
+		$shop_update = $this->findById($request->property_id);		//get house with id and update from vacant to occupied
+		// dd($shop_update);
+		$shop_update->status = 'occupied';
+		$shop_update->save();
+		return $shop;
+	}
+
+	public function de_allocate_shop($shopId){
+		$shop_update = $this->findById($shopId);		//get shop with id and update from occupied to vacant
+		$shop_update->status = 'vacant';
+		$shop_update->save();
+		return $shop_update;
+	}
 	
 	public function edit($shopId, $request) {
 	    $shop = $this->findById($shopId);
@@ -43,8 +78,11 @@ class EloquentShopRepository implements ShopContract
 	}
 	
 	public function findAll(){
-		return \DB::table('properties')->where('property_type', '=', 'shop')->get();
-	    // return Property::all();
+		return Property::where('property_type', '=', 'shop')->get();
+	}
+
+	public function findAllWithPhoto(){
+		return Property::where('property_type', '=', 'shop')->with('photo')->get();
 	}
 
 	public function agentViewShop($shopId){

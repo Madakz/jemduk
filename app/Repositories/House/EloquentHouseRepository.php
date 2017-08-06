@@ -8,6 +8,7 @@ use Sentinel;
 use Illuminate\Support\Facades\Input;
 use File;
 use App\Landlord;
+use App\Properties_allocation;
 
 class EloquentHouseRepository implements HouseContract
 {
@@ -59,6 +60,39 @@ class EloquentHouseRepository implements HouseContract
 	    // dd($house->id);
 	    return $house;
 	}
+
+	public function save_allocation_details($request){	
+		// dd($request);	
+		$house = new Properties_allocation;
+		$house->surname = $request->surname;
+		$house->othernames = $request->othernames;
+		$house->amount_paid_figure = $request->amount_paid_figure;
+		$house->amount_paid_words = $request->amount_paid_words;
+		$house->supposed_amount = $request->supposed_amount;
+		$house->balance_due = $request->balance_due;
+		$house->from_date = $request->from_date;
+		$house->to_date = $request->to_date;
+		$house->description = $request->description;
+		$house->payment_category = $request->category;
+		$house->recieved_by = $request->collector_name;
+		$house->phone_number = $request->phone_number;
+		$house->property_id = $request->property_id;
+		$house->user_id = $request->user_id;
+
+		$house->save();
+
+		$house_update = $this->findById($request->property_id);		//get house with id and update from vacant to occupied
+		$house_update->status = 'occupied';
+		$house_update->save();
+		return $house;
+	}
+
+	public function de_allocate_house($houseId){
+		$house_update = $this->findById($houseId);		//get house with id and update from occupied to vacant
+		$house_update->status = 'vacant';
+		$house_update->save();
+		return $house_update;
+	}
 	
 	public function edit($houseId, $request) {
 		// dd($houseId);
@@ -84,6 +118,11 @@ class EloquentHouseRepository implements HouseContract
 	
 	public function findAll(){
 		return \DB::table('properties')->where('property_type', '=', 'house')->get();
+	    // return Property::where('property_type','house')->all();
+	}
+
+	public function findAllWithPhoto(){
+		return Property::where('property_type', '=', 'house')->with('photo')->get();
 	    // return Property::where('property_type','house')->all();
 	}
 

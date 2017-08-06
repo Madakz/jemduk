@@ -14,7 +14,7 @@
                 <hr class="widget-separator">
                 <div class="widget-body">
                     {{Form::open(['route' => ['update_land', $lands->id], 'method' => 'PUT'])}}
-                       
+                       {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-7">
                                 <label for="location">Location</label>

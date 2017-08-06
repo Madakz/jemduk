@@ -5,16 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\User\UserContract;
 use App\Repositories\ClientView\ClientViewContract;
+use App\Repositories\House\HouseContract;
+use App\Repositories\Land\LandContract;
+use App\Repositories\Shop\ShopContract;
 use Sentinel;
 
 class ClientController extends Controller
 {
     protected $repo;
     protected $clientViewRepo;
+    protected $houseRepo;
+    protected $landRepo;
+    protected $shopRepo;
 
-    public function __construct(UserContract $userContract, ClientViewContract $ClientViewContract) {
+    public function __construct(UserContract $userContract, ClientViewContract $ClientViewContract, HouseContract $houseContract, LandContract $landContract, ShopContract $shopContract) {
         $this->repo = $userContract;
         $this->clientViewRepo = $ClientViewContract;
+        $this->houseRepo = $houseContract;
+        $this->landRepo = $landContract;
+        $this->shopRepo = $shopContract;
     }
 
     public function about(){
@@ -68,9 +77,10 @@ class ClientController extends Controller
         // dd($request);
         $this->validate($request, [
             'fullname' => 'required',
-            'email' => 'required',
-            'phone_number' => 'required',
-            'message' => 'required',
+            'email' => 'required|Between:3,64|email',
+            'city/state' => 'required',
+            'phone_number' => 'required|numeric',
+            'message' => 'required|AlphaNum',
         ]);
 
 
@@ -91,9 +101,9 @@ class ClientController extends Controller
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required',
+            'email' => 'required|Between:3,64|email',
             'subject' => 'required',
-            'message' => 'required',
+            'message' => 'required|AlphaNum',
         ]);
         $get_intouch = $this->clientViewRepo->save_get_intouch($request);
         if ($get_intouch->id) {
@@ -105,5 +115,21 @@ class ClientController extends Controller
                 ->withInput
                 ->with('error', 'issues encountered, pls try again!');
         }
+    }
+
+    public function allhouses(){
+        $properties = $this->houseRepo->findAllWithPhoto();
+        // dd($properties);
+        return view('clientviews.houses')->with('properties', $properties);
+    }
+
+    public function alllands(){
+        $properties = $this->landRepo->findAllWithPhoto();
+        return  view('clientviews.lands')->with('properties', $properties);
+    }
+
+    public function allshops(){
+        $properties = $this->shopRepo->findAllWithPhoto();
+        return view('clientviews.shops')->with('properties', $properties);
     }
 }

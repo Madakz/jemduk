@@ -51,16 +51,16 @@ class LandlordController extends Controller
         }else{
 	        $this->validate($request, [
 	        	'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-	            'surname' => 'required',
-	            'othername' => 'required',
-	            'email' => 'required|unique:users',
+	            'surname' => 'required|Alpha',
+	            'othername' => 'required|Alpha',
+	            'email' => 'required|email|unique:users',
 	            'gender' => 'required',
 	            'state' => 'required',
 	            'local_govt' => 'required',
-	            'phone_number' => 'required',
+	            'phone_number' => 'required|numeric',
 	            'address' => 'required',
-	            'bank_account' => 'required',
-	            'bank_name' => 'required',
+	            'bank_account' => 'required|numeric',
+	            'bank_name' => 'required|AlphaNum',
 	            // required|min:3|confirmed
 	        ]);
 	        
@@ -135,14 +135,14 @@ class LandlordController extends Controller
     public function update(Request $request, $id)
     {
     	$this->validate($request, [
-            'surname' => 'required',
-            'othername' => 'required',
-            'email' => 'required|unique:users',
+            'surname' => 'required|Alpha',
+            'othername' => 'required|Alpha',
+            'email' => 'required|email|unique:users',
             'gender' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|numeric',
             'address' => 'required',
-            'bank_account' => 'required',
-            'bank_name' => 'required',
+            'bank_account' => 'required|numeric',
+            'bank_name' => 'required|AlphaNum',
         ]);
     	if (Sentinel::guest())
         {

@@ -56,10 +56,9 @@ class UserController extends Controller
 		        	'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 		            'first_name' => 'required',
 		            'last_name' => 'required',
-		            'email' => 'required|unique:users',
-		            // 'user_role' => 'required',
+		            'email' => 'required|email|unique:users',
 		            'status' => 'required',
-		            'phone_number' => 'required',
+		            'phone_number' => 'required|numeric',
 		            'address' => 'required',
 		            'password' => 'required|min:6',
 		            'confirm_password' => 'required|min:6|same:password',
@@ -139,10 +138,10 @@ class UserController extends Controller
 		    	$this->validate($request, [
 		            'first_name' => 'required',
 		            'last_name' => 'required',
-		            'email' => 'required',
+		            'email' => 'required|email',
 		            // 'user_role' => 'required',
 		            // 'status' => 'required',
-		            'phone_number' => 'required',
+		            'phone_number' => 'required|numeric',
 		            'address' => 'required',
 		        ]);
 		        $users = $this->repo->edit($id, $request);

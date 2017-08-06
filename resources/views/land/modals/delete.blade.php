@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="modal fade m-medium" id="modal_delete_{{$lands->id}}" tabindex="-1" role="dialog" aria-labelledby="modal-delete-house" data-backdrop="false">
+    <div class="modal fade m-medium" id="modal_delete_{{$lands->id}}" tabindex="-1" role="dialog" aria-labelledby="modal-delete-house">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

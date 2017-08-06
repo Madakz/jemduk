@@ -5,6 +5,7 @@
         <title>Jemduk</title>
         
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui">
         <meta name="description" content="Admin, Dashboard, Bootstrap">
         <link rel="shortcut icon" sizes="196x196" href="/infinity/assets/images/logo.png">
@@ -50,6 +51,7 @@
                     </div>
                 @endif
                 {{Form::open(['route' => 'store_user', 'method' => 'POST', 'files'=>true])}}
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <input type="file" name="picture" value="{{old('picture')}}" class="form-control">
                     </div>
@@ -102,6 +104,7 @@
                             <input id="confirm_password" name="confirm_password" type="password" class="form-control" placeholder="Confirm Password" value="{{old('password')}}">
                         </div>
                     </div>
+                    <input type="reset" class="btn btn-danger" value="RESET"><br/><br/> 
                     <input type="submit" class="btn btn-primary" value="SIGN UP">
                     <br/><br/>
                     @include('layouts.errors')

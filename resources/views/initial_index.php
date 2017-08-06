@@ -3,6 +3,7 @@
 <head>
 
 	<!-- Meta Tags -->
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 	<meta name="description" content="YourHome - Property and Real Estate HTML Template">
@@ -50,7 +51,7 @@
 				<div class="row">
 					<div class="col-md-3 col-sm-3 logo">
 						<h1>
-							<a href="{{ url('/home') }}"><img src="{{ asset('/clientviews/img/jemduk.png')}}" alt="jemduk">
+							<a href="{{route('home')}}"><img src="{{ asset('/clientviews/img/jemduk.png')}}" alt="jemduk">
 							Jemduk</a>
 						</h1>
 					</div>
@@ -59,7 +60,7 @@
 						<!-- Nav Start -->
 						<nav>
 							<ul class="sf-menu" id="menu">
-								<li class="active"><a href="{{ url('/home') }}">Home <i class="menu-icon zmdi zmdi-home zmdi-hc"></i></a>									
+								<li class="active"><a href="{{route('home')}}">Home <i class="menu-icon zmdi zmdi-home zmdi-hc"></i></a>									
 								</li>
 								<li>
 									<a href="#about">About Us 
@@ -161,6 +162,7 @@
 					<div class="col-md-12">
 						{{Form::open(['route' => 'search_property', 'method' => 'POST'])}}
 							<!-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"></div> -->
+							{{ csrf_field() }}
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="row">
 									<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">

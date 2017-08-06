@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\Search\SearchContract;
+use App\Http\Controllers\DB;
+use App\Property;
 use Sentinel;
 
 class SearchController extends Controller
@@ -32,18 +34,18 @@ class SearchController extends Controller
     	$results=$this->repo->findByColumn($search_item1, $column1 , $search_item2, $column2);
     	// dd($results);
     	
-    	 return view('index', ['results' => $results]);
+    	 return view('search', ['results' => $results]);
 	    
     }
 
-    // public function getColumndata(Request $request){
-    //     $column = $request->categoey;
-    //     if(!empty($request->categoey)) 
-    //     {
-    //         $properties = DB::table('properties')->select($column)->get();
-    //         dd($properties);
-    //         return view('index', ['properties' => $properties]);
+    public function getColumndata(Request $request){
+        $column = $request->category;
+        if(!empty($request->category)) 
+        {
+            $properties = Property::select($column)->get();
+            // dd($properties);
+            return view('autosuggest', ['properties' => $properties]);
             
-    //     } 
-    // }
+        }
+    }
 }

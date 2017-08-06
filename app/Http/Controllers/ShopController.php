@@ -75,13 +75,16 @@ class ShopController extends Controller
             return redirect()->route('login');
         }else{
             $this->validate($request, [
-            	'location' => 'required',
+            	'location' => 'required|Min:3|Max:80|AlphaNum',
             	'type' => 'required',
             	'scope' => 'required',
                 'size' => 'required',
             	'coo_roo' => 'required',
             	'status' => 'required',
-                'price' => 'required',
+                'price' => 'required|numeric',
+                'picture.0' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+                'picture.1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+                'picture.2' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             ]);
             
             $shops = $this->repo->create($request);
@@ -153,12 +156,12 @@ class ShopController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-                'location' => 'required',
+                'location' => 'required|Min:3|Max:80|AlphaNum',
                 'type' => 'required',
                 'size' => 'required',
                 'coo_roo' => 'required',
                 'status' => 'required',
-                'price' => 'required',
+                'price' => 'required|numeric',
             ]);
         if (Sentinel::guest())
         {
@@ -198,11 +201,49 @@ class ShopController extends Controller
                 ->with('success', 'Shop deleted successfully');
     }
 
-    public function allocate(){
-        return view('shop.allocate');
+    public function allocate($id){
+        if (Sentinel::guest())
+        {
+            return redirect()->route('login');
+        }else{
+            $shop = $this->repo->agentViewShop($id);
+            $hidden_details[] = $shop;
+            $hidden_details[] = Sentinel::getUser();
+            return view('shop.allocate')->with('hidden_details', $hidden_details);
+        }
     }
 
-    public function de_allocate(){
+    public function store_allocation(Request $request){
+        $this->validate($request, [
+                'surname' => 'required|min:3|max:80|Alpha',
+                'othernames' => 'required|min:3|max:80|Alpha',
+                'amount_paid_figure' => 'required|numeric',
+                'amount_paid_words' => 'required|min:3|max:80|Alpha',
+                'balance_due' => 'required|numeric',
+                'from_date' => 'required|date',
+                'to_date' => 'required|date',
+                'category' => 'required',
+            ]);
+        if (Sentinel::guest())
+        {
+            return redirect()->route('login');
+        }else{
+            $shop = $this->repo->save_allocation_details($request);
+            return view('shop.reciept')->with('shop', $shop);
+        }
+    }
+
+    public function de_allocate($id){
+        if (Sentinel::guest())
+        {
+            return redirect()->route('login');
+        }else{
+            $shop = $this->repo->de_allocate_shop($id);
+            return view('shop.show',['shops' => $shop]);
+        }
+    }
+
+    public function sellShop(){
         return view('shop.show');
     }
 }

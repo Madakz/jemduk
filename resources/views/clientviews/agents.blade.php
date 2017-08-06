@@ -22,7 +22,7 @@
                             <div class="col-sm-6 col-md-3 item">
 								<div class="inner">
 									<div class="thumb">
-										<a href="#"><img class="thumbnail" src="{!! url('photo/'.$user->picture) !!}" alt="{{$user->picture}}" style="width:300px; height:300px;"></a>
+										<a href="#"><img class="" src="{!! url('photo/'.$user->picture) !!}" alt="{{$user->picture}}" style="width:300px; height:300px;"></a>
 										<!-- <div class="social-icons">
 											<ul>
 												<li><a href="#"><i class="zmdi zmdi-facebook"></i></a></li>
@@ -34,10 +34,10 @@
 										</div> -->
 									</div>
 									<div class="text">
-										<h3><a href="agent-detail.html">{{$user->last_name}} {{$user->first_name}}</a></h3>
+										<center><h3><a href="agent-detail.html">{{$user->last_name}} {{$user->first_name}}</a></h3></center>
 										<ul>
-											<li><i class="fa fa-phone"></i>Phone: {{$user->phone_number}}</li>
-											<li><i class="fa fa-envelope-o"></i>Email: {{$user->email}}</li>
+											<!-- <li><i class="fa fa-phone"></i>Phone: {{$user->phone_number}}</li>
+											<li><i class="fa fa-envelope-o"></i>Email: {{$user->email}}</li> -->
 										</ul>
 									</div>
 								</div>

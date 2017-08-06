@@ -75,7 +75,7 @@ class HouseController extends Controller
         }else{
         	// dd($request);
             $this->validate($request, [
-            	'location' => 'required',
+            	'location' => 'required|Min:3|Max:80|AlphaNum',
                 'scope' => 'required',
             	'type' => 'required',
             	'rooms' => 'required',
@@ -84,7 +84,8 @@ class HouseController extends Controller
             	'size' => 'required',
             	'coo_roo' => 'required',
             	'status' => 'required',
-            	'price' => 'required',
+            	'price' => 'required|numeric',
+                'landlord' => 'required',
             	'picture.0' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
                 'picture.1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
                 'picture.2' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
@@ -122,6 +123,7 @@ class HouseController extends Controller
         if (!$houses) {
             return view('house.create');
         }
+        
         return view('house.show', ['houses' => $houses]);
 
     }
@@ -158,14 +160,14 @@ class HouseController extends Controller
     public function update(Request $request, $id)
     {   
         $this->validate($request, [
-                'location' => 'required',
+                'location' => 'required|Min:3|Max:80|AlphaNum',
                 'rooms' => 'required',
                 'bathrooms' => 'required',
                 'sitting_room' => 'required',
                 'size' => 'required',
                 'coo_roo' => 'required',
-                'status' => 'required',
-                'price' => 'required',
+                'status' => 'required|Alpha',
+                'price' => 'required|numeric',
                 // 'picture.0' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
                 // 'picture.1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
                 // 'picture.2' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
@@ -210,11 +212,51 @@ class HouseController extends Controller
                 ->with('success', 'House deleted successfully');
     }
 
-    public function allocate(){
-        return view('house.allocate');
+    public function allocate($houseId){
+        if (Sentinel::guest())
+        {
+            return redirect()->route('login');
+        }else{
+            $house = $this->repo->agentViewHouse($houseId);
+            $hidden_details[] = $house;
+            $hidden_details[] = Sentinel::getUser();
+            // dd($hidden_details[1]);
+            return view('house.allocate')->with('hidden_details', $hidden_details);
+        }
     }
 
-    public function de_allocate(){
+    public function store_allocation(Request $request){
+        $this->validate($request, [
+                'surname' => 'required|min:3|max:80|Alpha',
+                'othernames' => 'required|min:3|max:80|Alpha',
+                'amount_paid_figure' => 'required|numeric',
+                'amount_paid_words' => 'required|min:3|max:80|Alpha',
+                'balance_due' => 'required|numeric',
+                'from_date' => 'required|date',
+                'to_date' => 'required|date',
+                'category' => 'required',
+            ]);
+        if (Sentinel::guest())
+        {
+            return redirect()->route('login');
+        }else{
+            $house = $this->repo->save_allocation_details($request);
+            return view('house.reciept')->with('house', $house);
+        }
+    }
+
+    public function de_allocate($id){
+        if (Sentinel::guest())
+        {
+            return redirect()->route('login');
+        }else{
+            $house = $this->repo->de_allocate_house($id);
+            return view('house.show',['houses' => $house]);
+        }
+    }
+
+    public function sellHouse(){
         return view('house.show');
     }
+    
 }
