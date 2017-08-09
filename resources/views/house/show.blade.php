@@ -132,6 +132,10 @@
                         <a href="{{ route('sell_house', [$houses->id])}}">                        
                             <button type="submit" class="btn btn-success btn-md"><i class="menu-icon zmdi zmdi-label zmdi-hc"></i> Sell house</button>
                         </a>
+                    @elseif($houses->status == 'sold' && $houses->scope == 'Sale')
+                        <!-- <a href="{{ route('de_allocate_house', [$houses->id])}}">                         -->
+                            <button type="submit" class="btn btn-default btn-md"><i class="menu-icon zmdi zmdi-lock zmdi-hc"></i> Sold</button>
+                        <!-- </a> -->
                     @else
                         <a href="{{ route('de_allocate_house', [$houses->id])}}">                        
                             <button type="submit" class="btn btn-warning btn-md"><i class="menu-icon zmdi zmdi-label zmdi-hc"></i> De-allocate house</button>

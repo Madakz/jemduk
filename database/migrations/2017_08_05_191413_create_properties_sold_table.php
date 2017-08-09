@@ -13,10 +13,11 @@ class CreatePropertiesSoldTable extends Migration
      */
     public function up()
     {
-        Schema::create('properties_sold', function (Blueprint $table) {
+        Schema::create('properties_solds', function (Blueprint $table) {
             $table->increments('id');
             $table->string('surname');   
             $table->string('othernames'); 
+            $table->string('client_phone_number');
             $table->string('amount_paid_figure');
             $table->string('amount_paid_words');
             $table->string('supposed_amount');
@@ -48,6 +49,6 @@ class CreatePropertiesSoldTable extends Migration
      */
     public function down()
     {
-        Schema::dropifExists('properties_sold');
+        Schema::dropifExists('properties_solds');
     }
 }

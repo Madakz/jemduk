@@ -75,7 +75,7 @@ class ShopController extends Controller
             return redirect()->route('login');
         }else{
             $this->validate($request, [
-            	'location' => 'required|Min:3|Max:80|AlphaNum',
+            	'location' => 'required|Min:3|AlphaNum',
             	'type' => 'required',
             	'scope' => 'required',
                 'size' => 'required',
@@ -156,7 +156,7 @@ class ShopController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-                'location' => 'required|Min:3|Max:80|AlphaNum',
+                'location' => 'required|Min:3|AlphaNum',
                 'type' => 'required',
                 'size' => 'required',
                 'coo_roo' => 'required',
@@ -215,10 +215,10 @@ class ShopController extends Controller
 
     public function store_allocation(Request $request){
         $this->validate($request, [
-                'surname' => 'required|min:3|max:80|Alpha',
-                'othernames' => 'required|min:3|max:80|Alpha',
+                'surname' => 'required|min:3|max:100|Alpha',
+                'othernames' => 'required|min:3|max:100|Alpha',
                 'amount_paid_figure' => 'required|numeric',
-                'amount_paid_words' => 'required|min:3|max:80|Alpha',
+                'amount_paid_words' => 'required|min:3|max:200|Alpha',
                 'balance_due' => 'required|numeric',
                 'from_date' => 'required|date',
                 'to_date' => 'required|date',
@@ -243,8 +243,48 @@ class ShopController extends Controller
         }
     }
 
-    public function sellShop(){
-        return view('shop.show');
+    public function sellShop($id){
+        if (Sentinel::guest())
+        {
+            return redirect()->route('login');
+        }else{
+            $shop = $this->repo->agentViewShop($id);
+            $hidden_details[] = $shop;
+            $hidden_details[] = Sentinel::getUser();
+            return view('shop.sell')->with('hidden_details', $hidden_details);
+        }
+    }
+
+    public function store_sellShop(Request $request){
+        $this->validate($request, [
+                'surname' => 'required|min:3|max:100|Alpha',
+                'othernames' => 'required|min:3|max:100|Alpha',
+                'phone_number' => 'required',
+                'payment_method' => 'required',
+                'client_address' => 'required|min:3|AlphaNum',
+                'amount_paid_figure' => 'required|numeric',
+                'amount_paid_words' => 'required|min:3|max:200|Alpha',
+                'balance_due' => 'required|numeric',               
+                'landlord_name' => 'required|min:3|max:100|AlphaNum',                
+                'landlord_witness_name' => 'required|min:3|max:100|Alpha',
+                'client_witness_name' => 'required|min:3|max:100|Alpha',
+                'landlord_witness_phone_number' => 'required',
+                'client_witness_phone_number' => 'required',
+                'landlord_witness_address' => 'required|min:3|AlphaNum',
+                'client_witness_address' => 'required|Alpha',
+            ]);
+        if (Sentinel::guest())
+        {
+            return redirect()->route('login');
+        }else{
+            $saved_shop = $this->repo->save_sale_details($request);   //save sold shop details
+            $get_shop= $this->repo->agentViewShop($saved_shop->property_id);      //get shop id
+            $landlord = $this->landlord_repo->findById($get_shop->landlord_id);        //get landlord
+            $shop[] = $landlord;
+            $shop[] = $saved_shop;
+            $shop[] = $get_shop;
+            return view('shop.sellshop_reciept')->with('shop', $shop);
+        }
     }
 }
 

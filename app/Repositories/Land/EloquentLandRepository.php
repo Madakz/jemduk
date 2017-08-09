@@ -8,6 +8,7 @@ use Sentinel;
 use Illuminate\Support\Facades\Input;
 use App\Landlord;
 use App\Properties_allocation;
+use App\Properties_sold;
 
 class EloquentLandRepository implements LandContract
 {
@@ -57,6 +58,37 @@ class EloquentLandRepository implements LandContract
 
 		$land_update = $this->findById($request->property_id);		//get land with id and update from vacant to occupied
 		$land_update->status = 'occupied';
+		$land_update->save();
+		return $land;
+	}
+
+	public function save_sale_details($request){
+		$land = new Properties_sold;
+		$land->surname = $request->surname;
+		$land->othernames = $request->othernames;
+		$land->amount_paid_figure = $request->amount_paid_figure;
+		$land->amount_paid_words = $request->amount_paid_words;
+		$land->supposed_amount = $request->supposed_amount;
+		$land->balance_due = $request->balance_due;
+		$land->landlord_name = $request->landlord_name;
+		$land->client_address = $request->client_address;
+		$land->description = $request->description;
+		$land->payment_category = $request->payment_method;
+		$land->recieved_by = $request->collector_name;
+		$land->client_phone_number = $request->phone_number;
+		$land->client_witness_name = $request->client_witness_name;
+		$land->client_witness_phone_number = $request->client_witness_phone_number;
+		$land->client_witness_address = $request->client_witness_address;
+		$land->landlord_witness_name = $request->landlord_witness_name;
+		$land->landlord_witness_phone_number = $request->landlord_witness_phone_number;
+		$land->landlord_witness_address = $request->landlord_witness_address;
+		$land->property_id = $request->property_id;
+		$land->user_id = $request->user_id;
+
+		$land->save();
+
+		$land_update = $this->findById($request->property_id);		//get land with id and update from vacant to occupied
+		$land_update->status = 'sold';
 		$land_update->save();
 		return $land;
 	}

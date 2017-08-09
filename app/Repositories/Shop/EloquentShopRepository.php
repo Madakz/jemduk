@@ -8,6 +8,8 @@ use Sentinel;
 use Illuminate\Support\Facades\Input;
 use App\Landlord;
 use App\Properties_allocation;
+use App\Properties_sold;
+
 
 class EloquentShopRepository implements ShopContract
 {
@@ -59,6 +61,37 @@ class EloquentShopRepository implements ShopContract
 		$shop_update = $this->findById($request->property_id);		//get house with id and update from vacant to occupied
 		// dd($shop_update);
 		$shop_update->status = 'occupied';
+		$shop_update->save();
+		return $shop;
+	}
+
+	public function save_sale_details($request){
+		$shop = new Properties_sold;
+		$shop->surname = $request->surname;
+		$shop->othernames = $request->othernames;
+		$shop->amount_paid_figure = $request->amount_paid_figure;
+		$shop->amount_paid_words = $request->amount_paid_words;
+		$shop->supposed_amount = $request->supposed_amount;
+		$shop->balance_due = $request->balance_due;
+		$shop->landlord_name = $request->landlord_name;
+		$shop->client_address = $request->client_address;
+		$shop->description = $request->description;
+		$shop->payment_category = $request->payment_method;
+		$shop->recieved_by = $request->collector_name;
+		$shop->client_phone_number = $request->phone_number;
+		$shop->client_witness_name = $request->client_witness_name;
+		$shop->client_witness_phone_number = $request->client_witness_phone_number;
+		$shop->client_witness_address = $request->client_witness_address;
+		$shop->landlord_witness_name = $request->landlord_witness_name;
+		$shop->landlord_witness_phone_number = $request->landlord_witness_phone_number;
+		$shop->landlord_witness_address = $request->landlord_witness_address;
+		$shop->property_id = $request->property_id;
+		$shop->user_id = $request->user_id;
+
+		$shop->save();
+
+		$shop_update = $this->findById($request->property_id);		//get shop with id and update from vacant to occupied
+		$shop_update->status = 'sold';
 		$shop_update->save();
 		return $shop;
 	}

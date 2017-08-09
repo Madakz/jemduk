@@ -101,7 +101,7 @@ class ClientController extends Controller
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|Between:3,64|email',
+            'email' => 'required|Between:3,100|email',
             'subject' => 'required',
             'message' => 'required|AlphaNum',
         ]);

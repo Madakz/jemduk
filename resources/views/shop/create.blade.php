@@ -22,7 +22,7 @@
                             </div>
                             <div class="form-group col-md-5">
                                 <label for="scope">Scope</label>
-                                <select class="form-control" {{old('scope') ? "selected":""}} name="scope">
+                                <select class="form-control" name="scope">
                                     <option>Scope</option>
                                     <option value="Sale">Sale</option>
                                     <option value="Rent">Rent</option>
@@ -38,7 +38,7 @@
                             </div>
                             <div class="form-group col-md-5">
                                 <label for="control-demo-6">Type</label>
-                                <select class="form-control" {{old('type') ? "selected":""}} name="type">
+                                <select class="form-control" name="type">
                                     <option>Type</option>
                                     <option value="super market">super market</option>
                                     <option value="mall">Mall</option>
@@ -80,7 +80,7 @@
                             <!-- </div> -->
                             <div class="form-group col-md-4">
                                 <label for="landlord">Landlord</label>
-                                <select class="form-control" {{old('type') ? "selected":""}} name="landlord">
+                                <select class="form-control" name="landlord">
                                     <option>landlord</option>
                                     @foreach($landlords as $landlord)
                                         <option value="{{$landlord->id}}">{{$landlord->surname}}&nbsp;{{$landlord->othername}}</option>

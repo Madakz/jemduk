@@ -106,6 +106,10 @@
                         <a href="{{ route('sell_land', [$lands->id])}}">                        
                             <button type="submit" class="btn btn-success btn-md"><i class="menu-icon zmdi zmdi-label zmdi-hc"></i> Sell Land</button>
                         </a>
+                    @elseif($lands->status == 'sold' && $lands->scope == 'Sale')
+                        <!-- <a href="{{ route('de_allocate_land', [$lands->id])}}">                         -->
+                            <button type="submit" class="btn btn-default btn-md"><i class="menu-icon zmdi zmdi-lock zmdi-hc"></i> Sold</button>
+                        <!-- </a> -->
                     @else
                         <a href="{{ route('de_allocate_land', [$lands->id])}}">                        
                             <button type="submit" class="btn btn-warning btn-md"><i class="menu-icon zmdi zmdi-label zmdi-hc"></i> De-allocate Land</button>

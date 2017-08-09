@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Input;
 use File;
 use App\Landlord;
 use App\Properties_allocation;
+use App\Properties_sold;
 
 class EloquentHouseRepository implements HouseContract
 {
@@ -92,6 +93,37 @@ class EloquentHouseRepository implements HouseContract
 		$house_update->status = 'vacant';
 		$house_update->save();
 		return $house_update;
+	}
+
+	public function save_sale_details($request){
+		$house = new Properties_sold;
+		$house->surname = $request->surname;
+		$house->othernames = $request->othernames;
+		$house->amount_paid_figure = $request->amount_paid_figure;
+		$house->amount_paid_words = $request->amount_paid_words;
+		$house->supposed_amount = $request->supposed_amount;
+		$house->balance_due = $request->balance_due;
+		$house->landlord_name = $request->landlord_name;
+		$house->client_address = $request->client_address;
+		$house->description = $request->description;
+		$house->payment_category = $request->payment_method;
+		$house->recieved_by = $request->collector_name;
+		$house->client_phone_number = $request->phone_number;
+		$house->client_witness_name = $request->client_witness_name;
+		$house->client_witness_phone_number = $request->client_witness_phone_number;
+		$house->client_witness_address = $request->client_witness_address;
+		$house->landlord_witness_name = $request->landlord_witness_name;
+		$house->landlord_witness_phone_number = $request->landlord_witness_phone_number;
+		$house->landlord_witness_address = $request->landlord_witness_address;
+		$house->property_id = $request->property_id;
+		$house->user_id = $request->user_id;
+
+		$house->save();
+
+		$house_update = $this->findById($request->property_id);		//get house with id and update from vacant to occupied
+		$house_update->status = 'sold';
+		$house_update->save();
+		return $house;
 	}
 	
 	public function edit($houseId, $request) {

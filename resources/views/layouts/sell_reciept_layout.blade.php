@@ -38,11 +38,11 @@
                         <div class="col-md-3 logo">
                             <img src="{{ asset('/clientviews/img/jemduk.png')}}" alt="jemduk" style="width:80px; height:80px ">
                         </div>
-                        <!-- @if(isset($house)) -->
+                        @if(isset($house))
                             <div class="col-md-9 title_adjust">
-                                HOUSE RENT RECIEPT
+                                PURCHASE AND SALE AGREEMENT FOR {{ strtoupper($house[2]->property_type) }}
                             </div>
-                        <!-- @elseif(isset($land))
+                        @elseif(isset($land))
                             <div class="col-md-9 title_adjust">
                                 PURCHASE AND SALE AGREEMENT FOR {{ strtoupper($land[2]->property_type) }}
                             </div>
@@ -50,16 +50,19 @@
                             <div class="col-md-9 title_adjust">
                                 PURCHASE AND SALE AGREEMENT FOR {{ strtoupper($shop[2]->property_type) }}
                             </div>
-                        @endif -->
+                        @endif
                     </div>
                     <div class="row content">
                         @yield('content')
                     </div> 
                     <br/>
                     <div class="row">
+                        <div class="col-md-4"></div>
                         <div class="col-md-4">
-                            <button class="form-control btn btn-default" onclick="print()"><i class="menu-icon zmdi zmdi-print zmdi-hc"></i> Print</button>
+                            <button class="form-control btn btn-primary" onclick="print()"><i class="menu-icon zmdi zmdi-print zmdi-hc"></i> Print</button>
                         </div>
+                        <div class="col-md-4"></div>
+                        <br/>
                         <br/>
                     </div> 
                     <br/>                                       
@@ -69,6 +72,3 @@
     </body>
     @include('layouts.scriptlinks')
 </html>
-<?php
-	// dd($land);
-?>

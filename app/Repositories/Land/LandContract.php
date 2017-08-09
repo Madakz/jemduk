@@ -18,4 +18,5 @@ interface LandContract
 	public function findAllWithPhoto();
 	public function save_allocation_details($request);
 	public function de_allocate_land($landId);
+	public function save_sale_details($request);
 }

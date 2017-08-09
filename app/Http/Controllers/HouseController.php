@@ -75,7 +75,7 @@ class HouseController extends Controller
         }else{
         	// dd($request);
             $this->validate($request, [
-            	'location' => 'required|Min:3|Max:80|AlphaNum',
+            	'location' => 'required|Min:3',
                 'scope' => 'required',
             	'type' => 'required',
             	'rooms' => 'required',
@@ -160,7 +160,7 @@ class HouseController extends Controller
     public function update(Request $request, $id)
     {   
         $this->validate($request, [
-                'location' => 'required|Min:3|Max:80|AlphaNum',
+                'location' => 'required|Min:3',
                 'rooms' => 'required',
                 'bathrooms' => 'required',
                 'sitting_room' => 'required',
@@ -227,10 +227,10 @@ class HouseController extends Controller
 
     public function store_allocation(Request $request){
         $this->validate($request, [
-                'surname' => 'required|min:3|max:80|Alpha',
-                'othernames' => 'required|min:3|max:80|Alpha',
+                'surname' => 'required|min:3|max:100|Alpha',
+                'othernames' => 'required|min:3|max:100|Alpha',
                 'amount_paid_figure' => 'required|numeric',
-                'amount_paid_words' => 'required|min:3|max:80|Alpha',
+                'amount_paid_words' => 'required|min:3|max:200|Alpha',
                 'balance_due' => 'required|numeric',
                 'from_date' => 'required|date',
                 'to_date' => 'required|date',
@@ -240,7 +240,12 @@ class HouseController extends Controller
         {
             return redirect()->route('login');
         }else{
-            $house = $this->repo->save_allocation_details($request);
+            $saved_house = $this->repo->save_allocation_details($request);
+            $get_house= $this->repo->agentViewhouse($saved_house->property_id);      //get house id
+            $landlord = $this->landlord_repo->findById($get_house->landlord_id);        //get landlord
+            $house[] = $landlord;
+            $house[] = $saved_house;
+            $house[] = $get_house;
             return view('house.reciept')->with('house', $house);
         }
     }
@@ -255,8 +260,49 @@ class HouseController extends Controller
         }
     }
 
-    public function sellHouse(){
-        return view('house.show');
+    public function sellHouse($id){
+        if (Sentinel::guest())
+        {
+            return redirect()->route('login');
+        }else{
+            $house = $this->repo->agentViewHouse($id);
+            $hidden_details[] = $house;
+            $hidden_details[] = Sentinel::getUser();
+            // dd($hidden_details[1]);
+            return view('house.sell')->with('hidden_details', $hidden_details);
+        }
+    }
+
+    public function store_sellHouse(Request $request){
+        $this->validate($request, [
+                'surname' => 'required|min:3|max:100|Alpha',
+                'othernames' => 'required|min:3|max:100|Alpha',
+                'phone_number' => 'required',
+                'payment_method' => 'required',
+                'client_address' => 'required|min:3|AlphaNum',
+                'amount_paid_figure' => 'required|numeric',
+                'amount_paid_words' => 'required|min:3|max:200|Alpha',
+                'balance_due' => 'required|numeric',               
+                'landlord_name' => 'required|min:3|max:100|AlphaNum',                
+                'landlord_witness_name' => 'required|min:3|max:100|Alpha',
+                'client_witness_name' => 'required|min:3|max:100|Alpha',
+                'landlord_witness_phone_number' => 'required',
+                'client_witness_phone_number' => 'required',
+                'landlord_witness_address' => 'required|min:3|AlphaNum',
+                'client_witness_address' => 'required|Alpha',
+            ]);
+        if (Sentinel::guest())
+        {
+            return redirect()->route('login');
+        }else{
+            $saved_house = $this->repo->save_sale_details($request);   //save sold house details
+            $get_house= $this->repo->agentViewhouse($saved_house->property_id);      //get house id
+            $landlord = $this->landlord_repo->findById($get_house->landlord_id);        //get landlord
+            $house[] = $landlord;
+            $house[] = $saved_house;
+            $house[] = $get_house;
+            return view('house.sellhouse_reciept')->with('house', $house);
+        }        
     }
     
 }

@@ -75,7 +75,7 @@ class LandController extends Controller
             return redirect()->route('login');
         }else{
             $this->validate($request, [
-            	'location' => 'required|Min:3|Max:80|AlphaNum',
+            	'location' => 'required|Min:3',
                 'scope' => 'required',
             	'type' => 'required',
             	'size' => 'required',
@@ -154,7 +154,7 @@ class LandController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-                'location' => 'required|Min:3|Max:80|AlphaNum',
+                'location' => 'required|Min:3',
                 'type' => 'required',
                 'size' => 'required',
                 'coo_roo' => 'required',
@@ -214,10 +214,10 @@ class LandController extends Controller
 
     public function store_allocation(Request $request){
         $this->validate($request, [
-                'surname' => 'required|min:3|max:80|Alpha',
-                'othernames' => 'required|min:3|max:80|Alpha',
+                'surname' => 'required|min:3|max:100|Alpha',
+                'othernames' => 'required|min:3|max:100|Alpha',
                 'amount_paid_figure' => 'required|numeric',
-                'amount_paid_words' => 'required|min:3|max:80|Alpha',
+                'amount_paid_words' => 'required|min:3|max:200|Alpha',
                 'balance_due' => 'required|numeric',
                 'from_date' => 'required|date',
                 'to_date' => 'required|date',
@@ -232,10 +232,6 @@ class LandController extends Controller
         }
     }
 
-    public function sellLand(){
-        return view('land.show');
-    }
-
     public function de_allocate($id){
         if (Sentinel::guest())
         {
@@ -244,5 +240,49 @@ class LandController extends Controller
             $land = $this->repo->de_allocate_land($id);
             return view('land.show',['lands' => $land]);
         }
+    }
+
+    public function sellLand($id){
+        if (Sentinel::guest())
+        {
+            return redirect()->route('login');
+        }else{
+            $land = $this->repo->agentViewLand($id);
+            $hidden_details[] = $land;
+            $hidden_details[] = Sentinel::getUser();
+            return view('land.sell')->with('hidden_details', $hidden_details);
+        }
+    }
+
+    public function store_sellLand(Request $request){
+        $this->validate($request, [
+                'surname' => 'required|min:3|max:100|Alpha',
+                'othernames' => 'required|min:3|max:100|Alpha',
+                'phone_number' => 'required',
+                'payment_method' => 'required',
+                'client_address' => 'required|min:3|AlphaNum',
+                'amount_paid_figure' => 'required|numeric',
+                'amount_paid_words' => 'required|min:3|max:200|Alpha',
+                'balance_due' => 'required|numeric',               
+                'landlord_name' => 'required|min:3|max:100|AlphaNum',                
+                'landlord_witness_name' => 'required|min:3|max:100|Alpha',
+                'client_witness_name' => 'required|min:3|max:100|Alpha',
+                'landlord_witness_phone_number' => 'required',
+                'client_witness_phone_number' => 'required',
+                'landlord_witness_address' => 'required|min:3|AlphaNum',
+                'client_witness_address' => 'required|Alpha',
+            ]);
+        if (Sentinel::guest())
+        {
+            return redirect()->route('login');
+        }else{
+            $saved_land = $this->repo->save_sale_details($request);   //save sold land details
+            $get_land = $this->repo->agentViewland($saved_land->property_id);      //get land id
+            $landlord = $this->landlord_repo->findById($get_land->landlord_id);        //get landlord
+            $land[] = $landlord;
+            $land[] = $saved_land;
+            $land[] = $get_land;
+            return view('land.sellland_reciept')->with('land', $land);
+        }          
     }
 }

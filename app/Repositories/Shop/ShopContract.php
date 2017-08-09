@@ -18,4 +18,5 @@ interface ShopContract
 	public function findAllWithPhoto();
 	public function save_allocation_details($request);
 	public function de_allocate_shop($shopId);
+	public function save_sale_details($request);
 }

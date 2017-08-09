@@ -18,5 +18,6 @@ interface HouseContract
 	public function findAllWithPhoto();
 	public function save_allocation_details($request);
 	public function de_allocate_house($houseId);
+	public function save_sale_details($request);
 	// public function findByName($propertyName);		//may use this later
 }
