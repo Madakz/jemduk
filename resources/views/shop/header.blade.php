@@ -1,3 +1,9 @@
+<?php
+    $logged_user = Sentinel::getUser();
+    $user_role = Sentinel::getUser()->roles->first();
+   // dd($logged_user->id);
+    // dd($user_role);
+?>
 <div class="navbar-header">
     <button type="button" id="menubar-toggle-btn" class="navbar-toggle visible-xs-inline-block navbar-toggle-left hamburger hamburger--collapse js-hamburger">
         <span class="sr-only">Toggle navigation</span>
@@ -32,20 +38,20 @@
             </li>
         </ul>
         <ul class="nav navbar-toolbar navbar-toolbar-right navbar-right">
-            <li class="nav-item dropdown hidden-float">
+            <!-- <li class="nav-item dropdown hidden-float">
                 <a href="javascript:void(0)" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
                     <i class="zmdi zmdi-hc-lg zmdi-search"></i>
                 </a>
-            </li>
+            </li> -->
             <li class="dropdown">
                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <i class="zmdi zmdi-hc-lg zmdi-settings"></i>
                 </a>
                 <ul class="dropdown-menu animated flipInY">
                     <li>
-                        <a href="javascript:void(0)"><i class="zmdi m-r-md zmdi-hc-lg zmdi-account-box"></i>My Profile</a>
+                        <a href="{{ route('my_profile', [$logged_user->id])}}"><i class="zmdi m-r-md zmdi-hc-lg zmdi-account-box"></i>My Profile</a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="javascript:void(0)"><i class="zmdi m-r-md zmdi-hc-lg zmdi-balance-wallet"></i>Balance</a>
                     </li>
                     <li>
@@ -53,7 +59,7 @@
                     </li>
                     <li>
                         <a href="javascript:void(0)"><i class="zmdi m-r-md zmdi-hc-lg zmdi-info"></i>privacy</a>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
         </ul>

@@ -67,7 +67,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <a data-toggle="modal" data-target="#modal_add_{{$landlords->id}}" id="delete-bu-btn" style="cursor:pointer;">
-                                            <button type="submit" class="btn btn-success btn-md"><i class="menu-icon zmdi zmdi-delete zmdi-hc"></i> Add Property</button> 
+                                            <button type="submit" class="btn btn-success btn-md"><i class="menu-icon zmdi zmdi-plus-square zmdi-hc"></i> Add Property</button> 
                                         </a>
                                     </div>
                                 </div>
@@ -78,7 +78,15 @@
                                             <button type="submit" class="btn btn-danger btn-md"><i class="menu-icon zmdi zmdi-delete zmdi-hc"></i> Delete Profile</button> 
                                         </a>
                                     </div>
-                                </div>                                
+                                </div>   
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <a data-toggle="modal" href="{{ route('all_property', [$landlords->id])}}" style="cursor:pointer;">
+                                            <button type="submit" class="btn btn-success btn-md"><i class="menu-icon zmdi zmdi-zoom-in zmdi-hc"></i> View All My Property</button> 
+                                        </a>
+                                    </div>
+                                </div>                             
                             </div>
                         </div>
                     </div>

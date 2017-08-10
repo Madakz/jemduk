@@ -51,16 +51,16 @@ class LandlordController extends Controller
         }else{
 	        $this->validate($request, [
 	        	'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-	            'surname' => 'required|Alpha',
-	            'othername' => 'required|Alpha',
-	            'email' => 'required|email|unique:users',
+	            'surname' => 'required',
+	            'othername' => 'required',
+	            'email' => 'required|email|unique:landlords',
 	            'gender' => 'required',
 	            'state' => 'required',
 	            'local_govt' => 'required',
-	            'phone_number' => 'required|numeric',
+	            'phone_number' => 'required',
 	            'address' => 'required',
-	            'bank_account' => 'required|numeric',
-	            'bank_name' => 'required|AlphaNum',
+	            'bank_account' => 'required',
+	            'bank_name' => 'required',
 	            // required|min:3|confirmed
 	        ]);
 	        
@@ -102,6 +102,21 @@ class LandlordController extends Controller
     	return view('landlord.show', ['landlords' => $landlords]);
     }
 
+    public function show_all_property($id){
+        if (Sentinel::guest())
+        {
+            return redirect()->route('login');
+        }else {
+            $landlords = $this->repo->findById($id);
+            $landlord_properties = $this->repo->get_my_properties($id);
+            $properties [] = $landlords;
+            $properties [] = $landlord_properties;
+
+        }       
+    
+        return view('landlord.show_properties', ['properties' => $properties]);
+    }
+
 	    /**
 	     * Show the form for editing the specified resource.
 	     *
@@ -135,14 +150,14 @@ class LandlordController extends Controller
     public function update(Request $request, $id)
     {
     	$this->validate($request, [
-            'surname' => 'required|Alpha',
-            'othername' => 'required|Alpha',
+            'surname' => 'required',
+            'othername' => 'required',
             'email' => 'required|email|unique:users',
             'gender' => 'required',
-            'phone_number' => 'required|numeric',
+            'phone_number' => 'required',
             'address' => 'required',
-            'bank_account' => 'required|numeric',
-            'bank_name' => 'required|AlphaNum',
+            'bank_account' => 'required',
+            'bank_name' => 'required',
         ]);
     	if (Sentinel::guest())
         {

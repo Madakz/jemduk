@@ -1,6 +1,7 @@
 <?php
     $logged_user = Sentinel::getUser();
     $user_role = Sentinel::getUser()->roles->first();
+   // dd($logged_user->id);
     // dd($user_role);
 ?>
 <!DOCTYPE html>
@@ -57,8 +58,8 @@
                                                 <span>Home</span>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a class="text-color" href="profile.html">
+                                        <li>                                            
+                                            <a class="text-color" href="{{ route('my_profile', [$logged_user->id])}}">
                                                 <span class="m-r-xs">
                                                     <i class="fa fa-user"></i>
                                                 </span>
@@ -85,12 +86,12 @@
         </aside>
         <div id="navbar-search" class="navbar-search collapse">
             <div class="navbar-search-inner">
-                <form action="#">
+                <!-- <form action="#">
                     <span class="search-icon">
                         <i class="fa fa-search"></i>
                     </span> 
                     <input class="search-field" type="search" placeholder="search...">
-                </form>
+                </form> -->
             <button type="button" class="search-close" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
                 <i class="fa fa-close"></i>
             </button>

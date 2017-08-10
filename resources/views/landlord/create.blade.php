@@ -97,21 +97,24 @@
 
                     <div class="row">
                         <div class="form-group col-md-6 col-xs-6 col-lg-6">
-                            <select name="state" class="form-control">
+                            <!-- <label>State</label> -->
+                            <input id="state" name="state" type="text" class="form-control" placeholder="State" value="{{old('state')}}">
+                            <!-- <select name="state" class="form-control">
                                 <option value="">Select State</option>
                                 <option value="lagos">Lagos</option>
                                 <option value="Plateau">Plateau</option>
                                 <option value="Kaduna">Kaduna</option>
                                 <option value="Abia">Abia</option>
-                            </select>
+                            </select> -->
                         </div>                        
                         <div class="form-group col-md-6 col-xs-6 col-lg-6">
-                            <select name="local_govt" class="form-control">
+                            <input id="local_govt" name="local_govt" type="text" class="form-control" placeholder="Local Govt Area" value="{{old('local_govt')}}">
+                            <!-- <select name="local_govt" class="form-control">
                                 <option value="">Select LGA</option>
                                 <option value="jos south">Jos south</option>
                                 <option value="shendam">Shendam</option>
                                 <option value="Bokkos">bokkos</option>
-                            </select>
+                            </select> -->
                         </div>
                     </div>
 

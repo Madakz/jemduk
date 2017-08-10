@@ -29,12 +29,22 @@
                     <div class="col-md-4">
                         <header class="widget-header">
                             <h3 class="widget-title"><b>{{$users->first_name}}&nbsp; {{$users->last_name}} </b>Profile</h3>
-                        </header>
+                        </header>                        
                     </div>
                     <div class="col-md-8"></div>
                     <div class="col-md-12"><hr class="widget-separator"></div>
-                    <div class="col-md-12" style="padding-left:0px;">
+                    <div class="col-md-12" style="padding-left:0px;">                        
                         <div class="widget-body">
+                            <div>
+                                @if(isset($success))
+                                    <div class="alert alert-success alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        {{ $success }}
+                                    </div>
+                                @endif
+                            </div>
                             <div class="col-md-4">                                
                                 <img class="thumbnail" src="{!! url('photo/'.$users->picture) !!}" alt="{{ $users->picture}}" style="margin-top:13px; height:200px; width:200px;">
                                 <!-- <h3 style="margin-left:25px;"><strong>Role:</strong> {{$users->status}}</h3> -->
@@ -84,16 +94,57 @@
                                             <button type="submit" class="btn btn-danger btn-md"><i class="menu-icon zmdi zmdi-delete zmdi-hc"></i> Delete Profile</button> 
                                         </a>
                                     </div>
-                                </div>                                
+                                </div> 
+                                <?php if(Sentinel::getUser()->id == $users->id){
+                                    $id=Sentinel::getUser()->id;
+                                ?>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <a data-toggle="modal" data-target="#modal_add_{{$id}}" id="delete-bu-btn" style="cursor:pointer;">
+                                                <button type="submit" class="btn btn-success btn-md"><i class="menu-icon zmdi zmdi-edit zmdi-hc"></i> Change Password</button> 
+                                            </a>
+                                        </div>
+                                    </div>   
+
+                                    <!-- modal for changing password -->
+                                    <div class="row">
+                                        <div class="modal fade m-medium" id="modal_add_{{$id}}" tabindex="-1" role="dialog" aria-labelledby="modal-delete-house">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">Change Password</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="modal-body">
+                                                            {{Form::open(['route' => ['change_password', $id], 'method' => 'put'])}}
+                                                                <input type="hidden" name="user_id" value="{{ $id }}">
+                                                                <label>New Password:</label>
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="password" value=""><br/>
+                                                                <br/><label>Confirm Password:</label>
+                                                                    <input type="password" name="confirmpassword" value=""><br/><br/>
+                                                                    <input type="submit" name="submit" class="btn btn-success" value="submit">     
+                                                            {{Form::close()}}
+                                                                                       
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- modal for changing password -->
+                                <?php } ?>                            
                             </div>
                         </div>
-                    </div>
+                    </div>                    
                     <div class="widget-body">
                         <div class="form-group">                            
                                 @include('user.modals.delete')
 
                         </div>
                     </div>
+
+                    
                 </div>
             </div>
             

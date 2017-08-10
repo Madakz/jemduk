@@ -101,6 +101,31 @@ class UserController extends Controller
 	        }
 	    }
 
+	    // public function myprofile($id){
+	    // 	return view('user.myprofile');
+	    // }
+
+	    public function change_password(Request $request, $id){
+	    	if(Sentinel::guest())
+	    	{
+	    		return redirect()->route('login');
+	    	}else{
+	    		$this->validate($request, [
+		            'password' => 'required|min:6',
+		            'confirmpassword' => 'required|min:6|same:password',
+		        ]);
+		        $users = $this->repo->change_password_query($id, $request);
+		        if ($users->id) {
+		        	return view('user.show', ['users' => $users])
+		        		->with('success', 'Password is successfully change');
+		        } else {
+		        	return back()
+		        		->withInput()
+		        		->with('error', 'Issues encountered, Try again!');
+		        }
+	    	}
+	    }
+
 	    /**
 	     * Show the form for editing the specified resource.
 	     *

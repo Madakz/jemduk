@@ -29,13 +29,13 @@ Route::get('forgot_password', 'AuthenticationController@forgotPassword')->name('
 Route::get('/logout', 'AuthenticationController@logout')->name('logout');
 
 Route::group(['prefix' => 'dashboard'], function() {
-    Route::get('/superadmin', 'HomeController@superadmin')->name('superadmin_dash');
-    Route::get('/admin', 'HomeController@admin')->name('admin_dash');
-    Route::get('/agent', 'HomeController@agent')->name('agent_dash');
-    // Route::get('create', 'UserController@create')->name('create_user');
-    Route::post('create', 'UserController@store')->name('store_user');
-    // Route::put('{userId}/edit', 'UserController@update')->name('update_user');
-    // Route::get('{userId}/delete', 'UserController@delete')->name('delete_user');
+Route::get('/superadmin', 'HomeController@superadmin')->name('superadmin_dash');
+Route::get('/admin', 'HomeController@admin')->name('admin_dash');
+Route::get('/agent', 'HomeController@agent')->name('agent_dash');
+// Route::get('create', 'UserController@create')->name('create_user');
+Route::post('create', 'UserController@store')->name('store_user');
+// Route::put('{userId}/edit', 'UserController@update')->name('update_user');
+// Route::get('{userId}/delete', 'UserController@delete')->name('delete_user');
 });
 
 Route::group(['prefix' => 'users'], function() {
@@ -46,6 +46,8 @@ Route::group(['prefix' => 'users'], function() {
     Route::get('/edit/{userId}', 'UserController@edit')->name('edit_agent');
     Route::put('/edit/{userId}', 'UserController@update')->name('update_agent');
     Route::get('/{userId}/delete', 'UserController@destroy')->name('delete_agent');
+    Route::get('/my-profile/{userId}', 'UserController@show')->name('my_profile');
+    Route::put('/my-profile/change-password/{userId}', 'UserController@change_password')->name('change_password');
 });
 
 Route::group(['prefix' => 'landlords'], function() {
@@ -56,6 +58,7 @@ Route::group(['prefix' => 'landlords'], function() {
     Route::get('/edit/{landlordId}', 'LandlordController@edit')->name('edit_landlord');
     Route::put('/edit/{landlordId}', 'LandlordController@update')->name('update_landlord');
     Route::get('/{landlordId}/delete', 'LandlordController@destroy')->name('delete_landlord');
+    Route::get('/properties/{landlordId}', 'LandlordController@show_all_property')->name('all_property');
 });
 
 Route::group(['prefix' => 'houses'], function() {

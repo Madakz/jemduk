@@ -10,6 +10,14 @@
     <link rel="stylesheet" type="text/css" href="/infinity/assets/libs/bower/lightbox2/dist/css/lightbox.min.css">
 @stop
 
+<!-- <link rel="stylesheet" type="text/css" href="{{{asset('/clientviews/css/bootstrap.min.css')}}}"> -->
+    <link rel="stylesheet" type="text/css" href="{{{asset('/clientviews/css/dataTables.bootstrap.min.css')}}}">
+    <link rel="stylesheet" type="text/css" href="{{{asset('/clientviews/css/jquery.dataTables.min.css')}}}">
+    <link rel="stylesheet" type="text/css" href="{{{asset('/clientviews/css/jquery.dataTables_themeroller.css')}}}">
+    <script type="text/javascript" src="{{{asset('/clientviews/js/jquery.js')}}}"></script>
+    <script type="text/javascript" src="{{{asset('/clientviews/js/jquery.dataTables.min.js')}}}"></script>
+    <script type="text/javascript" src="{{{asset('/clientviews/js/dataTables.foundation.min.js')}}}"></script> <!-- works -->
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -31,6 +39,14 @@
                     </header>
                     <hr class="widget-separator">                    
                         @if(Session::has('success'))
+                            <script>
+                                window.onload = function() {
+                                    if(!window.location.hash) {
+                                        window.location = window.location + '#loaded';
+                                        window.location.reload();
+                                    }
+                                }
+                            </script>
                             <div class="alert alert-success alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -42,21 +58,22 @@
                         @if(count($houses) < 1)
                             <div>No Houses added yet!</div>
                         @else
-                            <div class="table-responsive">
-                                <table id="default-datatable" data-plugin="DataTable" class="table table-striped" cellspacing="0" width="100%">
+                            <div class="table-responsive">                                
+                                <table id="myTable" class="table">
                                     <thead>
-                                        <tr>
-                                            <th>S/no</th>
-                                            <th>Location</th>
-                                            <th>Scope</th>
-                                            <th>Type</th>
-                                            <th>Rooms</th>
-                                            <th>Bathrooms</th>
-                                            <th>Sitting Room</th>
-                                            <th>Size</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
+                                        <?php
+                                            $sn=1;
+                                        ?>
+                                        <th>S/no</th>
+                                        <th>Location</th>
+                                        <th>Scope</th>
+                                        <th>Type</th>
+                                        <th>Rooms</th>
+                                        <th>Bathrooms</th>
+                                        <th>Sitting Room</th>
+                                        <th>Size</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </thead>
                                     <tfoot>
                                         <tr>
@@ -72,11 +89,8 @@
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
-                                    <?php
-                                        $sn=1;
-                                    ?>
-                                    @foreach($houses as $house)
-                                        <tbody>
+                                    <tbody>
+                                        @foreach($houses as $house)                                            
                                             <tr>
                                                 <td>{{$sn}}</td>
                                                 <td>{{$house->location}}</td>
@@ -93,12 +107,17 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                        </tbody>
-                                    <?php
-                                        $sn++;
-                                    ?>
-                                    @endforeach
+                                            <?php
+                                                $sn++;
+                                            ?>                                            
+                                        @endforeach
+                                    </tbody>
                                 </table>
+
+                                <script type="text/javascript">
+                                    $('#myTable').DataTable();
+                                    
+                                </script>
                             </div>
                         @endif
                     </div>
@@ -107,12 +126,3 @@
         </div>
     </section>
 @stop
-
-<script>
-    window.onload = function() {
-        if(!window.location.hash) {
-            window.location = window.location + '#loaded';
-            window.location.reload();
-        }
-    }
-</script>

@@ -36,11 +36,13 @@ class AuthenticationController extends Controller
                 Sentinel::login($user);
             try {
                 if (Sentinel::getUser()->roles->first()->slug == 'superadmin') {
+                    Sentinel::loginAndRemember($user);                   
                     return redirect()->route('superadmin_dash');
-                }else if (Sentinel::getUser()->roles()->first()->slug == 'admin') {
-                    
+                }else if (Sentinel::getUser()->roles()->first()->slug == 'admin') {                    
+                    Sentinel::loginAndRemember($user);
                     return redirect()->route('admin_dash');
                 }else if (Sentinel::getUser()->roles()->first()->slug == 'agent') {
+                    Sentinel::loginAndRemember($user);
                     return redirect()->route('agent_dash');
                 }
             } catch (BadMethodCallException $e) {

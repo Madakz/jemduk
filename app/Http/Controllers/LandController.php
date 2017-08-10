@@ -79,9 +79,9 @@ class LandController extends Controller
                 'scope' => 'required',
             	'type' => 'required',
             	'size' => 'required',
-            	'coo_roo' => 'required',
+            	'coo_roo' => 'required|unique:properties',
             	'status' => 'required',
-                'price' => 'required|numeric',
+                'price' => 'required',
                 'landlord' => 'required',
                 'picture.0' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
                 'picture.1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
@@ -159,7 +159,7 @@ class LandController extends Controller
                 'size' => 'required',
                 'coo_roo' => 'required',
                 'status' => 'required',
-                'price' => 'required|numeric',
+                'price' => 'required',
             ]);
         if (Sentinel::guest())
         {
@@ -214,11 +214,11 @@ class LandController extends Controller
 
     public function store_allocation(Request $request){
         $this->validate($request, [
-                'surname' => 'required|min:3|max:100|Alpha',
-                'othernames' => 'required|min:3|max:100|Alpha',
-                'amount_paid_figure' => 'required|numeric',
-                'amount_paid_words' => 'required|min:3|max:200|Alpha',
-                'balance_due' => 'required|numeric',
+                'surname' => 'required|min:3|max:100',
+                'othernames' => 'required|min:3|max:200',
+                'amount_paid_figure' => 'required',
+                'amount_paid_words' => 'required|min:3',
+                'balance_due' => 'required',
                 'from_date' => 'required|date',
                 'to_date' => 'required|date',
                 'category' => 'required',
@@ -261,21 +261,21 @@ class LandController extends Controller
 
     public function store_sellLand(Request $request){
         $this->validate($request, [
-                'surname' => 'required|min:3|max:100|Alpha',
-                'othernames' => 'required|min:3|max:100|Alpha',
+                'surname' => 'required|min:3|max:100',
+                'othernames' => 'required|min:3|max:200',
                 'phone_number' => 'required',
                 'payment_method' => 'required',
-                'client_address' => 'required|min:3|AlphaNum',
-                'amount_paid_figure' => 'required|numeric',
-                'amount_paid_words' => 'required|min:3|max:200|Alpha',
-                'balance_due' => 'required|numeric',               
-                'landlord_name' => 'required|min:3|max:100|AlphaNum',                
-                'landlord_witness_name' => 'required|min:3|max:100|Alpha',
-                'client_witness_name' => 'required|min:3|max:100|Alpha',
+                'client_address' => 'required|min:3',
+                'amount_paid_figure' => 'required',
+                'amount_paid_words' => 'required|min:3',
+                'balance_due' => 'required',               
+                'landlord_name' => 'required|min:3|max:200',                
+                'landlord_witness_name' => 'required|min:3|max:200',
+                'client_witness_name' => 'required|min:3|max:200',
                 'landlord_witness_phone_number' => 'required',
                 'client_witness_phone_number' => 'required',
-                'landlord_witness_address' => 'required|min:3|AlphaNum',
-                'client_witness_address' => 'required|Alpha',
+                'landlord_witness_address' => 'required|min:3',
+                'client_witness_address' => 'required',
             ]);
         if (Sentinel::guest())
         {

@@ -24,9 +24,9 @@
 					</div>
 					<div class="col-sm-6">
 						<div id="responsive-datatable_filter" class="dataTables_filter">
-							<label>Search:
+							<!-- <label>Search:
 								<input type="search" class="form-control input-sm" placeholder="" aria-controls="responsive-datatable">
-							</label>
+							</label> -->
 						</div>
 					</div>
 				</div>

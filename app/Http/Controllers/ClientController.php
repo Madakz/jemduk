@@ -79,8 +79,8 @@ class ClientController extends Controller
             'fullname' => 'required',
             'email' => 'required|Between:3,64|email',
             'city/state' => 'required',
-            'phone_number' => 'required|numeric',
-            'message' => 'required|AlphaNum',
+            'phone_number' => 'required',
+            'message' => 'required',
         ]);
 
 
@@ -103,7 +103,7 @@ class ClientController extends Controller
             'last_name' => 'required',
             'email' => 'required|Between:3,100|email',
             'subject' => 'required',
-            'message' => 'required|AlphaNum',
+            'message' => 'required',
         ]);
         $get_intouch = $this->clientViewRepo->save_get_intouch($request);
         if ($get_intouch->id) {
