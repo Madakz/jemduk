@@ -1,4 +1,16 @@
 <?php
+    
+    //added during hosting jemduk
+
+    $url = parse_url(getenv("DATABASE_URL"));
+
+    $host = $url["host"];
+    $username = $url["user"];
+    $port = $url["port"];
+    $password = $url["pass"];
+    $database = substr($url["path"], 1);
+
+     //added during hosting jemduk
 
 return [
 
@@ -31,17 +43,7 @@ return [
     |
     */
 
-    //added during hosting jemduk
 
-    $url = parse_url(getenv("postgres://yzwkjolmydkrko:e1d45c67c44dc8c92aa63a1329d15adf937dbb25c147f0cc3e014ae414021aae@ec2-23-23-221-255.compute-1.amazonaws.com:5432/dbcmnksguen7f2"));
-
-    $host = $url["ec2-23-23-221-255.compute-1.amazonaws.com"];
-    $username = $url["yzwkjolmydkrko"];
-    $post = $url["5432"];
-    $password = $url["e1d45c67c44dc8c92aa63a1329d15adf937dbb25c147f0cc3e014ae414021aae"];
-    $database = substr($url["dbcmnksguen7f2"], 1);
-
-    //added during hosting jemduk
 
 
     'connections' => [
