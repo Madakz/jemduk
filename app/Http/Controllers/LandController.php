@@ -227,7 +227,12 @@ class LandController extends Controller
         {
             return redirect()->route('login');
         }else{
-            $land = $this->repo->save_allocation_details($request);
+            $saved_land = $this->repo->save_allocation_details($request);
+            $get_land= $this->repo->agentViewland($saved_land->property_id);      //get land id
+            $landlord = $this->landlord_repo->findById($get_land->landlord_id);        //get landlord
+            $land[] = $landlord;
+            $land[] = $saved_land;
+            $land[] = $get_land;
             return view('land.reciept')->with('land', $land);
         }
     }

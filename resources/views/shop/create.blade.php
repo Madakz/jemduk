@@ -34,7 +34,7 @@
                         <div class="form-group row">
                             <div class="col-md-7">
                                 <label for="location">Description</label>
-                                <textarea rows="4" cols="20" class="form-control" name="description" value="{{ old('description')}}"></textarea>
+                                <textarea rows="4" cols="20" class="form-control" name="description" value="{{ old('description')}}">{{ old('description')}}</textarea>
                             </div>
                             <div class="form-group col-md-5">
                                 <label for="control-demo-6">Type</label>
@@ -53,7 +53,7 @@
                         <div class="form-group row">
                             <div class="col-md-4">
                                 <label for="size">Size</label>
-                                <input type="text" class="form-control" id="exampleInputPassword1" name="size" placeholder="Size of House" value="{{ old('size')}}">
+                                <input type="text" class="form-control" id="exampleInputPassword1" name="size" placeholder="Size of Shop" value="{{ old('size')}}">
                             </div>
                             <div class="col-md-4">
                                 <label for="coo_roo">COO/ROO Number</label>
@@ -70,7 +70,7 @@
                         <div class="form-group row">
                             <div class="col-md-4">
                                 <label for="price">Price</label>
-                                <input type="text" class="form-control" id="exampleInputPassword1" name="price" placeholder="Price of House" value="{{ old('price')}}">
+                                <input type="text" class="form-control" id="exampleInputPassword1" name="price" placeholder="Price of Shop" value="{{ old('price')}}">
                             </div>
                             <!-- <div class="col-md-4">
                                 <label for="picture">House photos (upload 3 pictures)</label>                                

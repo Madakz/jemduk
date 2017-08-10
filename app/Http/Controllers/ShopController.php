@@ -228,7 +228,12 @@ class ShopController extends Controller
         {
             return redirect()->route('login');
         }else{
-            $shop = $this->repo->save_allocation_details($request);
+            $saved_shop = $this->repo->save_allocation_details($request);
+            $get_shop= $this->repo->agentViewshop($saved_shop->property_id);      //get shop id
+            $landlord = $this->landlord_repo->findById($get_shop->landlord_id);        //get landlord
+            $shop[] = $landlord;
+            $shop[] = $saved_shop;
+            $shop[] = $get_shop;
             return view('shop.reciept')->with('shop', $shop);
         }
     }
