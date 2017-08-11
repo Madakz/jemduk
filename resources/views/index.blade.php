@@ -1,7 +1,3 @@
-<!-- the below conditional-statement is to display a link for logged-in-users to be able to go back to dashb and dont delete it even if it seems useless -->
-@if (null == Sentinel::getUser())
-
-
 	<!DOCTYPE html>
 	<html dir="ltr" lang="en">
 	<head>
@@ -627,7 +623,8 @@
 										<li><a href="#">Properties Sell</a></li>
 										<li><a href="#">Agent</a></li>
 
-
+<!-- the below conditional-statement is to display a link for logged-in-users to be able to go back to dashb and dont delete it even if it seems useless -->
+@if (null == Sentinel::getUser())
 <!-- the if statement starts from above -->
 @elseif (Sentinel::getUser()->roles->first()->slug == 'superadmin')
 	<ul>
