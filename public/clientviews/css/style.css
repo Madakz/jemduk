@@ -423,7 +423,7 @@ header.sticky {
 }
 header.sticky .logo img {
     height: 40px;
-    margin-top: 10px;
+    margin-top: 0px;
 }
 header.sticky .sf-menu .menu-description {
     display: none;
