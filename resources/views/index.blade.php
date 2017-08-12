@@ -641,9 +641,9 @@
 										<li><a href="#">Agent</a></li>
 
 <!-- the below conditional-statement is to display a link for logged-in-users to be able to go back to dashb and dont delete it even if it seems useless -->
-@if (null == Sentinel::getUser())
+<!-- @if (null == Sentinel::getUser()) -->
 <!-- the if statement starts from above -->
-@elseif (Sentinel::getUser()->roles->first()->slug == 'superadmin')
+<!-- @elseif (Sentinel::getUser()->roles->first()->slug == 'superadmin')
 	<ul>
 		<li><a href="#">Properties</a></li>
 		<li><a href="#">Rentals</a></li>
@@ -664,7 +664,7 @@
 		<li><a href="#">Properties Sell</a></li>
 		<li><a href="#">Agent</a></li>
 		<li><a href="{{route('agent_dash')}}">My Dashboard</a>
-@endif		
+@endif	 -->	
 
 <!-- the first and above if statement ends here							 -->
 								</ul>

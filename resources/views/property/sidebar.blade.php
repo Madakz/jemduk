@@ -1,27 +1,39 @@
 <div class="menubar-scroll">
     <div class="menubar-scroll-inner">
         <ul class="app-menu">
-            <li class="has-submenu">
-                <a href="#" class="submenu-toggle">
-                    <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i> 
-                    <span class="menu-text">Dashboard</span>
-                </a>
-            </li>
-
-            <?php
-                if (Sentinel::getUser()->roles->first()->slug == 'superadmin') {
-            ?>    
-                <!-- for Agents -->
-                <hr>
+            @if (Sentinel::getUser()->roles->first()->slug == 'superadmin')
                 <li class="has-submenu">
-                    <a href="{{route('agent_index')}}">
-                        <i class="menu-icon zmdi zmdi-account-circle zmdi-hc-lg"></i> 
-                        <span class="menu-text">Agents</span>
-                    </a>                
+                    <a href="{{route('superadmin_dash')}}">
+                        <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i> 
+                        <span class="menu-text">Dashboard</span>
+                    </a>
                 </li>
-            <?php
-                }
-            ?>
+            @elseif(Sentinel::getUser()->roles->first()->slug == 'admin')
+                <li class="has-submenu">
+                    <a href="{{route('admin_dash')}}">
+                        <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i> 
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
+            @elseif(Sentinel::getUser()->roles->first()->slug == 'agent')
+                <li class="has-submenu">
+                    <a href="{{route('agent_dash')}}">
+                        <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i> 
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
+            @endif
+            
+                @if (Sentinel::getUser()->roles->first()->slug == 'superadmin')             
+                    <!-- for Agents -->
+                    <hr>
+                    <li class="has-submenu">
+                        <a href="{{route('agent_index')}}">
+                            <i class="menu-icon zmdi zmdi-account-circle zmdi-hc-lg"></i> 
+                            <span class="menu-text">Agents</span>
+                        </a>                
+                    </li>
+                @endif
 
             <!-- for Landlords -->
             <hr>

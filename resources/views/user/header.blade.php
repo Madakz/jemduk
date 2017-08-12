@@ -15,11 +15,17 @@
         <span class="sr-only">Toggle navigation</span>
         <span class="zmdi zmdi-hc-lg zmdi-more"></span>
     </button>
-    <button type="button" class="navbar-toggle navbar-toggle-right collapsed" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span> 
-        <span class="zmdi zmdi-hc-lg zmdi-search"></span>
-    </button> 
-    <a href="{{route('home')}}" class="navbar-brand">
+    <a href="{{ route('my_profile', [$logged_user->id])}}" style="color:#fff; padding-top:0px; margin-bottom:0px;">
+        <button type="button" class="navbar-toggle navbar-toggle-right collapsed" data-toggle="collapse" data-target="{{ route('my_profile', [$logged_user->id])}}" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span> 
+            <span>
+                <h5>
+                    {{$logged_user->first_name}} &nbsp;{{$logged_user->last_name}}
+                </h5>
+            </span>
+        </button>
+    </a>
+    <a href="#" class="navbar-brand">
         <center><span class="brand-name">Jemduk</span></center>
     </a>
 </div>
@@ -51,10 +57,15 @@
                     <li>
                         <a href="{{ route('my_profile', [$logged_user->id])}}"><i class="zmdi m-r-md zmdi-hc-lg zmdi-account-box"></i>My Profile</a>
                     </li>
-                    <!-- <li>
-                        <a href="javascript:void(0)"><i class="zmdi m-r-md zmdi-hc-lg zmdi-balance-wallet"></i>Balance</a>
-                    </li>
                     <li>
+                        <a class="text-color" href="{{ route('logout') }}">
+                            <span class="m-r-xs">
+                                <i class="fa fa-sign-out"></i>
+                            </span> 
+                            <span>Sign Out</span>
+                        </a>
+                    </li>
+                    <!-- <li>
                         <a href="javascript:void(0)"><i class="zmdi m-r-md zmdi-hc-lg zmdi-phone-msg"></i>Connection<span class="label label-primary">3</span></a>
                     </li>
                     <li>

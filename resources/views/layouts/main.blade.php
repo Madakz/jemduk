@@ -34,7 +34,7 @@
                 <div class="media">
                     <div class="media-left">
                         <div class="avatar avatar-md avatar-circle">
-                            <a href="javascript:void(0)">
+                            <a href="{{ route('my_profile', [$logged_user->id])}}">
                                 <img class="img-responsive" src="{!! url('photo/'.$logged_user->picture) !!}" alt="{{$logged_user->picture}}">
                             </a>
                         </div>
@@ -47,17 +47,37 @@
                             </h5>
                             <ul>
                                 <li class="dropdown">
-                                    <a href="javascript:void(0)" class="dropdown-toggle usertitle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><small>{{$user_role->slug}}</small> <span class="caret"></span>
+                                    <a href="javascript:void(0)" class="dropdown-toggle usertitle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><small><?php $role = ucfirst($user_role->slug) ?>{{$role}}</small> <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu animated flipInY">
-                                        <li>
-                                            <a class="text-color" href="{{route('home')}}">
-                                                <span class="m-r-xs">
-                                                    <i class="fa fa-home"></i>
-                                                </span>
-                                                <span>Home</span>
-                                            </a>
-                                        </li>
+                                        @if (Sentinel::getUser()->roles->first()->slug == 'superadmin')
+                                            <li>
+                                                <a class="text-color" href="{{route('superadmin_dash')}}">
+                                                    <span class="m-r-xs">
+                                                        <i class="fa fa-home"></i>
+                                                    </span>
+                                                    <span>Home</span>
+                                                </a>
+                                            </li>
+                                        @elseif(Sentinel::getUser()->roles->first()->slug == 'admin')
+                                            <li>
+                                                <a class="text-color" href="{{route('admin_dash')}}">
+                                                    <span class="m-r-xs">
+                                                        <i class="fa fa-home"></i>
+                                                    </span>
+                                                    <span>Home</span>
+                                                </a>
+                                            </li>
+                                        @elseif(Sentinel::getUser()->roles->first()->slug == 'agent')
+                                            <li>
+                                                <a class="text-color" href="{{route('agent_dash')}}">
+                                                    <span class="m-r-xs">
+                                                        <i class="fa fa-home"></i>
+                                                    </span>
+                                                    <span>Home</span>
+                                                </a>
+                                            </li>
+                                        @endif
                                         <li>                                            
                                             <a class="text-color" href="{{ route('my_profile', [$logged_user->id])}}">
                                                 <span class="m-r-xs">

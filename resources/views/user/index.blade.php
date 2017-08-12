@@ -99,13 +99,13 @@
                                                         <td>{{$user->last_login}}</td>
                                                         <td>{{$user->first_name}}</td>
                                                         <td>{{$user->last_name}}</td>
-                                                        <td>{{$user->status}}</td>
+                                                        <td><?php $status= ucfirst($user->status); ?>{{$status}}</td>
                                                         <td>{{$user->phone_number}}</td>
                                                         <td>{{$user->address}}</td>
                                                         <td>{{$user->agent_number}}</td>
                                                         <td>
                                                             <a data-toggle="modal" href="users/show/{{$user->id}}" id="edit-bu-btn" style="cursor:pointer;">
-                                                                <i class="fa fa-folder-open"></i> Show
+                                                                <i class="fa fa-folder-open"></i> View
                                                             </a>&nbsp;
                                                         
                                                         </td>

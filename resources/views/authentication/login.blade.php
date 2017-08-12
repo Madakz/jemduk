@@ -16,68 +16,75 @@
         <link rel="stylesheet" href="/infinity/assets/css/misc-pages.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
     </head>
-    <body class="simple-page">
-        <div id="back-to-home">
-            <a href="" class="btn btn-outline btn-default" onclick="back()">
-                <i class="zmdi zmdi-arrow-left"></i>
-            </a>&nbsp;
-            <a href="{{ route('home') }}" class="btn btn-outline btn-default">
-                <i class="fa fa-home animated zoomIn"></i>
-            </a>
-        </div>
-        <div class="simple-page-wrap">
-            <div class="simple-page-logo animated swing">
-                    <a href="{{ route('home') }}">
-                    <span>
-                        <i class="{{ route('login') }}"></i>
-                    </span>
-                    <span>Jemduk</span>
-                </a>
-            </div>
-            <div class="simple-page-form animated flipInY" id="login-form">
-                <h4 class="form-title m-b-xl text-center">Sign In With Your Jemduk Account</h4>
-                @if(session('success'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {{ session('success')}}
-                    </div>
-                @elseif(session('error'))
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {{ session('error')}}
-                    </div>
-                @endif
-                {{Form::open(['route' => 'attemptLogin', 'method' => 'POST'])}}
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        <input id="sign-in-email" name="email" type="email" class="form-control" placeholder="Email" autofocus>
-                    </div>
-                    <div class="form-group">
-                        <input id="sign-in-password" name="password" type="password" class="form-control" placeholder="Password">
-                    </div>
-                    <div class="form-group m-b-xl">
-                        <div class="checkbox checkbox-primary">
-                            <input type="checkbox" id="keep_me_logged_in">
-                            <label for="keep_me_logged_in">Keep me signed in</label>
+    <body class="simple-page col-md-12">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="simple-page-wrap">
+                    <div class="simple-page-logo animated swing row">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <a href="" class="btn btn-outline btn-default" onclick="back()">
+                                    <i class="zmdi zmdi-arrow-left"></i>
+                                </a>&nbsp;
+                                <a href="{{ route('home') }}" class="btn btn-outline btn-default">
+                                    <i class="fa fa-home animated zoomIn"></i>
+                                </a>
+                            </div>                            
+                        </div>
+                        <div class="col-md-4">
+                            <a href="{{ route('home') }}">                                
+                                <span>Jemduk</span>
+                            </a>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-primary" value="SIGN IN">
-                    <br/><br/>
-                    @include('layouts.errors')
-                {{Form::close()}}
+                    <div class="simple-page-form animated flipInY" id="login-form">
+                        <h4 class="form-title m-b-xl text-center">Sign In With Your Jemduk Account</h4>
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                {{ session('success')}}
+                            </div>
+                        @elseif(session('error'))
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                {{ session('error')}}
+                            </div>
+                        @endif
+                        {{Form::open(['route' => 'attemptLogin', 'method' => 'POST'])}}
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <input id="sign-in-email" name="email" type="email" class="form-control" placeholder="Email" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input id="sign-in-password" name="password" type="password" class="form-control" placeholder="Password">
+                            </div>
+                            <div class="form-group m-b-xl">
+                                <div class="checkbox checkbox-primary">
+                                    <input type="checkbox" id="keep_me_logged_in">
+                                    <label for="keep_me_logged_in">Keep me signed in</label>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="SIGN IN">
+                            <br/><br/>
+                            @include('layouts.errors')
+                        {{Form::close()}}
+                    </div>
+                </div>
+                <div class="simple-page-footer">
+                    <p>
+                        <a href="{{ route('forgot_password') }}">FORGOT YOUR PASSWORD ?</a>
+                    </p>
+                    <p>
+                        <!-- <small>Don't have an account ?</small> <a href="{{ route('register') }}">CREATE AN ACCOUNT</a> -->
+                    </p>
+                </div>
             </div>
-            <div class="simple-page-footer">
-                <p>
-                    <a href="{{ route('forgot_password') }}">FORGOT YOUR PASSWORD ?</a>
-                </p>
-                <p>
-                    <small>Don't have an account ?</small> <a href="{{ route('register') }}">CREATE AN ACCOUNT</a>
-                </p>
-            </div>
+            <div class="col-md-4"></div>            
         </div>
         @include('layouts.sessions')
     </body>

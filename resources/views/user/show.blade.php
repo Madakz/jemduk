@@ -12,14 +12,14 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
             <a href="{{route('register')}}">
                 <button type="button" class="btn btn-primary" >
                     <i class="menu-icon zmdi zmdi-account-add zmdi-hc-lg"></i>
                     <span>    Add Agent</span>
                 </button>
             </a>
-        </div>
+        </div> -->
     </div>
     <br/>
     <section class="app-content">
@@ -56,29 +56,10 @@
                                 <br/>
 
                                 <h4><b>General Information</b></h4>
-                                <h5><strong>User Role:</strong> {{$users->status}}</h5>
+                                <h5><strong>User Role:</strong><?php $status=ucfirst($users->status); ?> {{$status}}</h5>
                                 <h5><strong>Address:</strong> {{$users->address}}</h5>
                                 <h5><strong>Agent Number:</strong> {{$users->agent_number}}</h5>
                             </div>
-                           <!--  <div class="col-md-4">                                
-                                <h4 style="border-color:yellow;"><b>Actions</b></h4>
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <a data-toggle="modal" href="{{ route('edit_agent', [$users->id])}}" id="edit-bu-btn" style="cursor:pointer;">
-                                            <button type="submit" class="btn btn-primary btn-md"><i class="menu-icon zmdi zmdi-edit zmdi-hc"></i> Edit Profile</button>
-                                        </a>
-                                    </div>
-                                </div>
-                                <br/>
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <a data-toggle="modal" data-target="#modal_delete_{{$users->id}}" id="delete-bu-btn" style="cursor:pointer;margin-left:10px;">
-                                            <button type="submit" class="btn btn-danger btn-md"><i class="menu-icon zmdi zmdi-delete zmdi-hc"></i> Delete Profile</button> 
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div> -->
                             <div class="col-md-4">                                
                                 <h4 style="padding-left:35px;"><b>Actions</b></h4>
                                 <div class="col-md-12">
