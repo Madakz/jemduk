@@ -45,6 +45,20 @@
 	
 	<div class="page-wrapper">
 
+		<!-- Top Bar Start -->
+			<div class="top-bar">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 top-contact">
+							<div class="list">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Top Bar End -->
+
 		<!-- Header Start -->
 		<header>
 			<div class="container">
