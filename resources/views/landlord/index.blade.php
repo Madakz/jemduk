@@ -97,7 +97,7 @@
                                                 <td>{{$landlord->address}}</td>
                                                 <td>
                                                     <a data-toggle="modal" href="landlords/show/{{$landlord->id}}" id="edit-bu-btn" style="cursor:pointer;">
-                                                        <i class="fa fa-folder-open"></i> Show
+                                                        <i class="fa fa-folder-open"></i> View
                                                     </a>&nbsp;                                                    
                                                 </td>
                                             </tr>

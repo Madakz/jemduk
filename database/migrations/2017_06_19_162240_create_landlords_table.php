@@ -18,7 +18,7 @@ class CreateLandlordsTable extends Migration
             $table->string('picture');
             $table->string('surname');
             $table->string('othername');
-            $table->string('address');
+            $table->text('address');
             $table->string('phone_number');
             $table->string('email')->nullable();
             $table->string('gender');

@@ -69,7 +69,7 @@ class LandlordController extends Controller
 	        $landlord = $this->repo->create($request);
 	        // dd($landlord);
 	        if ($landlord) {
-	            return redirect(route('create_landlord'))->withInput()->with('success', 'Landlord Succesfully added');
+	            return redirect(route('landlord_index'))->withInput()->with('success', 'Landlord Succesfully added');
 	        } else {
 	            return back()
 	                ->withInput()

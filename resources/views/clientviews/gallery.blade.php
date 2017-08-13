@@ -11,6 +11,8 @@
 			</div>			
 		</div>
 		<!-- Page Banner End -->
+
+		
 		<!-- Gallery Start -->
 		<section class="gallery">
 			<div class="container">
@@ -21,6 +23,9 @@
 							
 							<div class="gallery-grid-item">
 								<div class="item">
+									@if($properties->isEmpty())
+										<h3 style="color:black;">No photos yet!</h3>
+									@endif
 									@foreach($properties as $property)
 										<div class="col-md-3">
 											<div class="inner">

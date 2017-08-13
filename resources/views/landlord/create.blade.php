@@ -16,23 +16,39 @@
         <link rel="stylesheet" href="/infinity/assets/css/misc-pages.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
     </head>
-    <body class="simple-page">
-        <div id="back-to-home">
-            <a href="" class="btn btn-outline btn-default" onclick="back()">
-                <i class="zmdi zmdi-arrow-left"></i>
-            </a>&nbsp;
-            <a href="{{ route('home') }}" class="btn btn-outline btn-default">
-                <i class="fa fa-home animated zoomIn"></i>
-            </a>
-        </div>
-        <div class="simple-page-wrap">
-            <div class="simple-page-logo animated swing">
-                <a href="{{ route('home') }}">
-                    <i class="zmdi zmdi-arrow-left"></i>
-                    <span>Jemduk</span>
-                </a>
-            </div>
-            <div class="simple-page-form animated flipInY" id="signup-form">
+    <body class="simple-page col-md-12">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="simple-page-wrap">
+                    <div class="simple-page-logo animated swing row">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <a href="" class="btn btn-outline btn-default" onclick="back()">
+                                    <i class="zmdi zmdi-arrow-left"></i>
+                                </a>&nbsp;
+                                @if (Sentinel::getUser()->roles->first()->slug == 'superadmin')
+                                    <a href="{{route('superadmin_dash')}}" class="btn btn-outline btn-default">
+                                        <i class="fa fa-home animated zoomIn"></i>
+                                    </a>
+                                @elseif(Sentinel::getUser()->roles->first()->slug == 'admin')
+                                    <a href="{{route('admin_dash')}}" class="btn btn-outline btn-default">
+                                        <i class="fa fa-home animated zoomIn"></i>
+                                    </a>
+                                @elseif(Sentinel::getUser()->roles->first()->slug == 'agent')
+                                    <a href="{{route('agent_dash')}}" class="btn btn-outline btn-default">
+                                        <i class="fa fa-home animated zoomIn"></i>
+                                    </a>
+                                @endif
+                            </div>                            
+                        </div>
+                        <div class="col-md-4">
+                            <a href="{{ route('home') }}">                                
+                                <span>Jemduk</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="simple-page-form animated flipInY" id="signup-form">
                 <h4 class="form-title m-b-xl text-center">Register Landlord</h4>
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible" role="alert">
@@ -131,11 +147,14 @@
                     @include('layouts.errors')
                 {{Form::close()}}
             </div>
-            <div class="simple-page-footer">
-                <p>
-                    <small>Do you have an account ?</small> <a href="{{ route('login') }}">SIGN IN</a>
-                </p>
+                </div>
+                <!-- <div class="simple-page-footer">
+                    <p>
+                        <small>Do you have an account ?</small> <a href="{{ route('login') }}">SIGN IN</a>
+                    </p>
+                </div> -->
             </div>
+            <div class="col-md-4"></div>            
         </div>
         @include('layouts.sessions')
     </body>

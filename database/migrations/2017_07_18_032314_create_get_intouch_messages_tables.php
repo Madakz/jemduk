@@ -18,8 +18,8 @@ class CreateGetIntouchMessagesTables extends Migration
             $table->string('first_name');   
             $table->string('last_name'); 
             $table->string('email');   
-            $table->string('subject')->nullable(); 
-            $table->string('message'); 
+            $table->text('subject')->nullable(); 
+            $table->text('message'); 
             $table->timestamps();
         });
     }

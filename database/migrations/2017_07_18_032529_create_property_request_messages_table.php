@@ -19,7 +19,7 @@ class CreatePropertyRequestMessagesTable extends Migration
             $table->string('phone_number'); 
             $table->string('email');   
             $table->string('city_state')->nullable(); 
-            $table->string('message');
+            $table->text('message');
             $table->integer('property_id')->unsigned();
 
             $table->foreign('property_id')->references('id')->on('properties'); 

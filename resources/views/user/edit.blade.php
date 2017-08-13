@@ -27,9 +27,19 @@
                                 <a href="" class="btn btn-outline btn-default" onclick="back()">
                                     <i class="zmdi zmdi-arrow-left"></i>
                                 </a>&nbsp;
-                                <a href="{{ route('home') }}" class="btn btn-outline btn-default">
-                                    <i class="fa fa-home animated zoomIn"></i>
-                                </a>
+                                @if (Sentinel::getUser()->roles->first()->slug == 'superadmin')
+                                    <a href="{{route('superadmin_dash')}}" class="btn btn-outline btn-default">
+                                        <i class="fa fa-home animated zoomIn"></i>
+                                    </a>
+                                @elseif(Sentinel::getUser()->roles->first()->slug == 'admin')
+                                    <a href="{{route('admin_dash')}}" class="btn btn-outline btn-default">
+                                        <i class="fa fa-home animated zoomIn"></i>
+                                    </a>
+                                @elseif(Sentinel::getUser()->roles->first()->slug == 'agent')
+                                    <a href="{{route('agent_dash')}}" class="btn btn-outline btn-default">
+                                        <i class="fa fa-home animated zoomIn"></i>
+                                    </a>
+                                @endif
                             </div>                            
                         </div>
                         <div class="col-md-4">
@@ -118,4 +128,9 @@
         </div>
         @include('layouts.sessions')
     </body>
+    <script>
+        function back(){
+            window.history.back(-1);
+        }
+    </script>
 </html>

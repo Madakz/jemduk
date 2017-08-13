@@ -79,7 +79,11 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="status">Status</label>
-                                <input type="text" class="form-control" id="exampleInputPassword1" name="status" placeholder="Status" value="{{$houses->status}}">
+                                <select class="form-control" name="status">
+                                    <option>Choose status</option>
+                                    <option value="vacant">Vacant</option>
+                                    <option value="occupied">Occupied</option>
+                                </select>
                             </div>
                         </div>
                         
