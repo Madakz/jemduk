@@ -91,7 +91,7 @@
                         <i class="fa fa-group fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">10</div>
+                        <div class="huge">{{$dashboard[3]}}</div>
                         <div>Agents</div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                         <i class="fa fa-users fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">10</div>
+                        <div class="huge">{{$dashboard[2]}}</div>
                         <div>Landlords</div>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
                         <i class="fa fa-fort-awesome fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">10</div>
+                        <div class="huge">{{$dashboard[0]}}</div>
                         <div>Houses</div>
                     </div>
                 </div>
@@ -160,7 +160,7 @@
                         <i class="fa fa-square fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">10</div>
+                        <div class="huge">{{$dashboard[1]}}</div>
                         <div>Lands</div>
                     </div>
                 </div>
@@ -183,7 +183,7 @@
                         <i class="zmdi zmdi-city zmdi-hc-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">10</div>
+                        <div class="huge">{{$dashboard[4]}}</div>
                         <div>Shops</div>
                     </div>
                 </div>
@@ -206,7 +206,7 @@
                         <i class="fa fa-file-pdf-o fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">10</div>
+                        <div class="huge">0</div>
                         <div>Uploaded Documents</div>
                     </div>
                 </div>
